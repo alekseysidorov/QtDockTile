@@ -7,13 +7,15 @@
 TARGET = QtDockIcon
 TEMPLATE = lib
 
-DEFINES += QTDOCKICON_LIBRARY
+DEFINES += QTDOCKTILE_LIBRARY
 
-SOURCES += qtdockicon.cpp
+SOURCES += \
+    qtdocktile.cpp
 
-HEADERS += qtdockicon.h \
-    qtdockicon_global.h \
-    qtdockicon_p.h
+HEADERS += \
+    qtdocktile.h \
+    qtdocktile_global.h \
+    qtdocktile_p.h
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -33,6 +35,14 @@ unix:!symbian {
     }
     INSTALLS += target
 }
+
+
+
+
+
+
+
+
 
 
 

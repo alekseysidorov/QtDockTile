@@ -93,3 +93,6 @@ qtc-debugging-helper
 
 # linux shared libraries
 *.so*
+
+#mac shared libraries
+*.dylib*

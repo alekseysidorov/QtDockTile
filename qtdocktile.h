@@ -1,19 +1,19 @@
 #ifndef QTDOCKICON_H
 #define QTDOCKICON_H
 
-#include "QtDockIcon_global.h"
+#include "qtdocktile_global.h"
 #include <QObject>
 
 class QMenu;
 class QIcon;
-class QtDockIconPrivate;
-class QTDOCKICONSHARED_EXPORT QtDockIcon : public QObject
+class QtDockTilePrivate;
+class QTDOCKTILE_EXPORT QtDockTile : public QObject
 {
-	Q_DECLARE_PRIVATE(QtDockIcon)
+	Q_DECLARE_PRIVATE(QtDockTile)
 	Q_OBJECT
 public:
-	QtDockIcon(QObject *parent = 0);
-	virtual ~QtDockIcon();
+	QtDockTile(QObject *parent = 0);
+	virtual ~QtDockTile();
 	void setIcon(const QIcon &icon);
 	QIcon icon() const;
 	void setOverlayIcon(const QIcon &icon);
@@ -28,7 +28,7 @@ public:
 public slots:
 	void alert(bool on = true);
 protected:
-	QScopedPointer<QtDockIconPrivate> d_ptr;
+	QScopedPointer<QtDockTilePrivate> d_ptr;
 };
 
 #endif // QTDOCKICON_H
