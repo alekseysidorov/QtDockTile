@@ -1,0 +1,12 @@
+#ifndef QTDOCKICON_GLOBAL_H
+#define QTDOCKICON_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(QTDOCKICON_LIBRARY)
+#  define QTDOCKICONSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define QTDOCKICONSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // QTDOCKICON_GLOBAL_H
