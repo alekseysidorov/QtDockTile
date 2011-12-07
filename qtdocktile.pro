@@ -10,12 +10,16 @@ TEMPLATE = lib
 DEFINES += QTDOCKTILE_LIBRARY
 
 SOURCES += \
-    qtdocktile.cpp
+    qtdocktile.cpp \
+    qtdockprovider.cpp \
+    qtdockmanager.cpp
 
 HEADERS += \
     qtdocktile.h \
     qtdocktile_global.h \
-    qtdocktile_p.h
+    qtdocktile_p.h \
+    qtdockprovider.h \
+    qtdockmanager_p.h
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -35,6 +39,10 @@ unix:!symbian {
     }
     INSTALLS += target
 }
+
+
+
+
 
 
 
