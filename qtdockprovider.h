@@ -17,6 +17,7 @@ public:
 	virtual void setOverlayIcon(const QIcon &icon) = 0;
 	virtual void setBadge(const QString &badge) = 0;
 	virtual void setProgress(int percents) = 0;
+	virtual void alert(bool on) = 0;
 signals:
 	void isUsableChanged(bool set);
 };
