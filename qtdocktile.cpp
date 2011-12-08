@@ -3,18 +3,19 @@
 #include "qtdockprovider.h"
 #include <QMenu>
 
-static QtDockProviderList usableProviders()
+static QtDockManager *manager()
 {
-	return QtDockManager::instance()->usableProviders();
+	return QtDockManager::instance();
 }
-//some sugar
-#define _providers \
-	foreach (QtDockProvider *provider, usableProviders()) \
-		provider \
 
 QtDockTile::QtDockTile(QObject *parent) :
 	QObject(parent)
 {
+	connect(manager(), SIGNAL(badgeChanged(QString)), SIGNAL(badgeChanged(QString)));
+	connect(manager(), SIGNAL(iconChanged(QIcon)), SIGNAL(iconChanged(QIcon)));
+	connect(manager(), SIGNAL(menuChanged(QMenu*)), SIGNAL(menuChanged(QMenu*)));
+	connect(manager(), SIGNAL(overlayIconChanged(QIcon)), SIGNAL(overlayIconChanged(QIcon)));
+	connect(manager(), SIGNAL(progressChanged(int)), SIGNAL(progressChanged(int)));
 }
 
 QtDockTile::~QtDockTile()
@@ -24,64 +25,56 @@ QtDockTile::~QtDockTile()
 void QtDockTile::setIcon(const QIcon &icon)
 {
 	Q_D(QtDockTile);
-	d->dockIcon = icon;
-	_providers->setIcon(icon);
+	manager()->setIcon(icon);
 }
 
 QIcon QtDockTile::icon() const
 {
-	return d_func()->dockIcon;
+	return manager()->icon();
 }
 
 void QtDockTile::setOverlayIcon(const QIcon &icon)
 {
-	Q_D(QtDockTile);
-	d->overlayIcon = icon;
-	_providers->setOverlayIcon(icon);
+	manager()->setOverlayIcon(icon);
 }
 
 QIcon QtDockTile::overlayIcon() const
 {
-	return d_func()->overlayIcon;
+	return manager()->overlayIcon();
 }
 
 void QtDockTile::setMenu(QMenu *menu)
 {
 	Q_D(QtDockTile);
-	d->menu = menu;
-	_providers->setMenu(menu);
+	manager()->setMenu(menu);
 }
 
 QMenu *QtDockTile::menu() const
 {
-	return d_func()->menu.data();
+	return manager()->menu();
 }
 
 void QtDockTile::setBadge(const QString &text)
 {
-	Q_D(QtDockTile);
-	d->badge = text;
-	_providers->setBadge(text);
+	manager()->setBadge(text);
 }
 
 QString QtDockTile::badge() const
 {
-	return d_func()->badge;
+	return manager()->badge();
 }
 
 void QtDockTile::setProgress(int percent)
 {
-	Q_D(QtDockTile);
-	d->percent = percent;
-	_providers->setProgress(percent);
+	manager()->setProgress(percent);
 }
 
 int QtDockTile::progress() const
 {
-	return d_func()->percent;
+	return manager()->progress();
 }
 
 void QtDockTile::alert(bool on)
 {
-	_providers->alert(on);
+	manager()->alert(on);
 }

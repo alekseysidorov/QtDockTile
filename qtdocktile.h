@@ -25,6 +25,12 @@ public:
 	QString badge() const;
 	void setProgress(int percent);
 	int progress() const;
+signals:
+	void iconChanged(const QIcon &icon);
+	void overlayIconChanged(const QIcon &icon);
+	void menuChanged(QMenu *menu);
+	void badgeChanged(const QString &badje);
+	void progressChanged(const int percent);
 public slots:
 	void alert(bool on = true);
 protected:
