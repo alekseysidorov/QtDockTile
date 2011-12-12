@@ -16,6 +16,29 @@ include(${QT_USE_FILE})
 include(CommonUtils)
 
 define_bundle_paths(qtdocktile)
-add_simple_library(qtdocktile SHARED)
+
+#Search for source and headers in source directory
+file(GLOB SRC "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+file(GLOB HDR "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
+moc_wrap_cpp(MOC_SRCS ${HDR})
+
+# This project will generate library
+add_library(qtdocktile SHARED ${SRC} ${HDR} ${MOC_SRCS})
+add_definitions(-DQTDOCKTILE_LIBRARY)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR}
+        .
+)
+update_compiler_flags(qtdocktile)
+
+target_link_libraries(qtdocktile
+        ${QT_LIBRARIES}
+)
+
+install(TARGETS qtdocktile
+        RUNTIME DESTINATION ${RLIBDIR}
+        LIBRARY DESTINATION ${LIBDIR}
+        ARCHIVE DESTINATION ${LIBDIR}
+)
 
 add_subdirectory(plugins)

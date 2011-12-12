@@ -7,21 +7,19 @@ macro(ADD_DOCKTILE_PLUGIN target)
 	file(GLOB_RECURSE SRC "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 	file(GLOB_RECURSE HDR "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
 	file(GLOB_RECURSE FORMS "${CMAKE_CURRENT_SOURCE_DIR}/*.ui")
-	if (apple)
-		file(GLOB_RECURSE SOURCES_MM RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/" "${CMAKE_CURRENT_SOURCE_DIR}/*.mm" )
-		list(APPEND SOURCE SOURCE_MM} )
+        if(APPLE)
+                file(GLOB_RECURSE MM "${CMAKE_CURRENT_SOURCE_DIR}/*.mm")
 	endif()
 
 	qt4_wrap_ui(UIS_H ${FORMS})
 	moc_wrap_cpp(MOC_SRCS ${HDR})
 
 	# This project will generate library, TODO use MODULE instead SHARED
-	add_library(${target} SHARED ${SRC} ${HDR} ${UIS_H} ${SOURCE_MM} ${MOC_SRCS})
+        add_library(${target} SHARED ${SRC} ${HDR} ${UIS_H} ${MM} ${MOC_SRCS})
 
 	include_directories(${CMAKE_CURRENT_BINARY_DIR}
 		.
 	)
-	update_compiler_flags(${target})
 
 	target_link_libraries(${target}
 		${QT_LIBRARIES}
@@ -35,7 +33,7 @@ macro(ADD_DOCKTILE_PLUGIN target)
 endmacro()
 
 if(APPLE)
-	add_subdirectory(mac)
+        add_subdirectory(mac)
 elseif(UNIX)
 	add_subdirectory(unity)
 	add_subdirectory(dockmanager)

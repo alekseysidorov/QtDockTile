@@ -9,7 +9,7 @@ class QtMacDockTile : public QtDockProvider
 {
 	Q_OBJECT
 	Q_INTERFACES(QtDockProvider)
-	Q_DECLARE_PRIVATE(QtMacDockTile)
+//	Q_DECLARE_PRIVATE(QtMacDockTile)
 public:
 	QtMacDockTile(QObject *parent = 0);
 	virtual ~QtMacDockTile();
@@ -20,8 +20,8 @@ public:
 	virtual void setBadge(const QString &badge);
 	virtual void setProgress(int percents);
 	virtual void alert(bool on);
-private:
-	QScopedPointer<QtMacDockTilePrivate> d_ptr;
+//private:
+//	QScopedPointer<QtMacDockTilePrivate> d_ptr;
 };
 
 #endif // MACDOCKTILE_H

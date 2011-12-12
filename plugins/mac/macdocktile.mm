@@ -1,23 +1,23 @@
 #include "macdocktile.h"
 
 #import <AppKit/NSDockTile.h>
+#import <Cocoa/Cocoa.h>
 
 extern void qt_mac_set_dock_menu(QMenu *);
 
-class QtMacDockTile;
-class QtMacDockTilePrivate
-{
-	Q_DECLARE_PUBLIC(QtMacDockTile)
-public:
-	QtMacDockTilePrivate(QtMacDockTile *q) : q_ptr(q) {}
-	QtMacDockTile *q_ptr;
-	//DockIconHandler *dockIconHandler;
-};
-
+//class QtMacDockTile;
+//class QtMacDockTilePrivate
+//{
+//	Q_DECLARE_PUBLIC(QtMacDockTile)
+//public:
+//	QtMacDockTilePrivate(QtMacDockTile *q) : q_ptr(q) {}
+//	QtMacDockTile *q_ptr;
+//	//DockIconHandler *dockIconHandler;
+//};
 
 QtMacDockTile::QtMacDockTile(QObject *parent) :
-	QtDockProvider(parent),
-	d_ptr(new QtMacDockTilePrivate(this))
+	QtDockProvider(parent)/*,
+	d_ptr(new QtMacDockTilePrivate(this))*/
 {
 }
 
@@ -64,4 +64,4 @@ void QtMacDockTile::alert(bool on)
 		[NSApp requestUserAttention: NSInformationalRequest];
 }
 
-Q_EXPORT_PLUGIN2(MacDockTile, MacDockTile)
+Q_EXPORT_PLUGIN2(QtMacDockTile, QtMacDockTile)
