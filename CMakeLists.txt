@@ -15,8 +15,6 @@ find_package(Qt4 REQUIRED)
 include(${QT_USE_FILE})
 include(CommonUtils)
 
-define_bundle_paths(qtdocktile)
-
 #Search for source and headers in source directory
 file(GLOB SRC "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 file(GLOB HDR "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
@@ -36,9 +34,9 @@ target_link_libraries(qtdocktile
 )
 
 install(TARGETS qtdocktile
-        RUNTIME DESTINATION ${RLIBDIR}
-        LIBRARY DESTINATION ${LIBDIR}
-        ARCHIVE DESTINATION ${LIBDIR}
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
 )
 
 add_subdirectory(plugins)

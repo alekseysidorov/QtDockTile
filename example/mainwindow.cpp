@@ -3,21 +3,22 @@
 #include <qtdocktile.h>
 
 MainWindow::MainWindow(QWidget *parent) :
-	QMainWindow(parent),
-	ui(new Ui::MainWindow),
-	m_tile(new QtDockTile(this))
+    QMainWindow(parent),
+    ui(new Ui::MainWindow),
+    m_tile(new QtDockTile(this))
 {
-	ui->setupUi(this);
-#if defined(Q_OS_UNIX) || !defined(Q_OS_MACOSX)
-	ui->actionElementWithIcon->setIcon(QIcon::fromTheme("applications-internet"));
-#endif
+    ui->setupUi(this);
 
-	m_tile->setMenu(ui->menu);
-	connect(ui->pushButton, SIGNAL(clicked(bool)), m_tile, SLOT(alert(bool)));
-	connect(ui->lineEdit, SIGNAL(textChanged(QString)), m_tile, SLOT(setBadge(QString)));
+    ui->actionElementWithIcon->setIcon(QIcon::fromTheme("applications-internet"));
+    m_tile->setMenu(ui->menu);
+    m_tile->setIcon(QIcon(":/im-status-message-edit.svgz"));
+
+    connect(ui->pushButton, SIGNAL(clicked()), m_tile, SLOT(alert()));
+    connect(ui->lineEdit, SIGNAL(textChanged(QString)), m_tile, SLOT(setBadge(QString)));
+    connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), m_tile, SLOT(setProgress(int)));
 }
 
 MainWindow::~MainWindow()
 {
-	delete ui;
+    delete ui;
 }

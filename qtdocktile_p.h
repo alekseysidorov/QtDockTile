@@ -6,10 +6,10 @@
 class QtDockTile;
 class QtDockTilePrivate
 {
-	Q_DECLARE_PUBLIC(QtDockTile)
+    Q_DECLARE_PUBLIC(QtDockTile)
 public:
-	QtDockTilePrivate(QtDockTile *q) : q_ptr(q) {}
-	QtDockTile *q_ptr;
+    QtDockTilePrivate(QtDockTile *q) : q_ptr(q) {}
+    QtDockTile *q_ptr;
 };
 
 #endif // QTDOCKICON_P_H

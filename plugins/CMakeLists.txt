@@ -27,8 +27,8 @@ macro(ADD_DOCKTILE_PLUGIN target)
 	)
 
 	install(TARGETS ${target}
-                RUNTIME DESTINATION "${PLUGINDIR}/docktile"
-                LIBRARY DESTINATION "${PLUGINDIR}/docktile"
+                RUNTIME DESTINATION "${QT_PLUGINS_DIR}/docktile"
+                LIBRARY DESTINATION "${QT_PLUGINS_DIR}/docktile"
 	)
 endmacro()
 
