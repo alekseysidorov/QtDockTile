@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>330</width>
-    <height>370</height>
+    <width>328</width>
+    <height>368</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QFormLayout" name="formLayout">
     <property name="fieldGrowthPolicy">
-     <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+     <enum>QFormLayout::ExpandingFieldsGrow</enum>
     </property>
     <item row="0" column="0">
      <widget class="QLabel" name="label">
@@ -35,20 +35,6 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QCheckBox" name="checkBox">
-      <property name="text">
-       <string>Show overlay icon</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>Alert</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="1">
      <widget class="QSlider" name="horizontalSlider">
       <property name="sizePolicy">
@@ -62,6 +48,13 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Alert</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -69,8 +62,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>330</width>
-     <height>22</height>
+     <width>328</width>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

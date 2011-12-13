@@ -14,7 +14,6 @@ QtDockTile::QtDockTile(QObject *parent) :
     connect(manager(), SIGNAL(badgeChanged(QString)), SIGNAL(badgeChanged(QString)));
     connect(manager(), SIGNAL(iconChanged(QIcon)), SIGNAL(iconChanged(QIcon)));
     connect(manager(), SIGNAL(menuChanged(QMenu*)), SIGNAL(menuChanged(QMenu*)));
-    connect(manager(), SIGNAL(overlayIconChanged(QIcon)), SIGNAL(overlayIconChanged(QIcon)));
     connect(manager(), SIGNAL(progressChanged(int)), SIGNAL(progressChanged(int)));
 }
 

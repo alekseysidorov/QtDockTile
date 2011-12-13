@@ -18,3 +18,6 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}
 )
 
 target_link_libraries(simpledock ${QT_LIBRARIES} ${QT_QTMAIN_LIBRARY} qtdocktile)
+
+install(FILES simpledock.desktop DESTINATION share/applications)
+install(TARGETS simpledock DESTINATION bin)

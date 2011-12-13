@@ -5,6 +5,7 @@
 #include <QApplication>
 #include <QIcon>
 #include <QPainter>
+#include <QtPlugin>
 
 extern void qt_mac_set_dock_menu(QMenu *);
 

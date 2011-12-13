@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=simpledock
+Type=Application
+Comment=Simple dock tile example for Qt
+Exec=simpledock
+TryExec=simpledock
+Icon=simpledock
+Categories=Qt;Development;

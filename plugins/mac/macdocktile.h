@@ -1,7 +1,6 @@
 #ifndef MACDOCKTILE_H
 #define MACDOCKTILE_H
 
-#include <QtPlugin>
 #include <qtdockprovider.h>
 
 class QtMacDockTilePrivate;

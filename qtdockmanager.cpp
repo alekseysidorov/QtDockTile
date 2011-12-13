@@ -104,7 +104,7 @@ QtDockManager::QtDockManager()
             else
                 qWarning("Unknow interface in plugin %s", qPrintable(plugin));
         } else
-            qWarning("Unable to load plugin %s", qPrintable(plugin));
+			qWarning("Unable to load plugin %s : %s", qPrintable(plugin), qPrintable(loader.errorString()));
     }
 }
 
