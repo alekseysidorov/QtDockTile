@@ -1,5 +1,9 @@
 #include "qtdockmanager_p.h"
 #include "qtdockprovider.h"
+#include <QPluginLoader>
+#include <QLibraryInfo>
+#include <QDir>
+#include <QLibrary>
 
 //some sugar
 #define _providers \
@@ -91,7 +95,26 @@ void QtDockManager::alert(bool on)
 QtDockManager::QtDockManager()
 {
 	//resolve plugins
+	QStringList plugins;
+	QDir dir = QLibraryInfo::location(QLibraryInfo::PluginsPath) + QLatin1String("docktile");
+	foreach (QString filename, dir.entryList())
+		if (QLibrary::isLibrary(filename))
+			plugins.append(filename);
 
+	//debug hack
+
+	QPluginLoader loader;
+	foreach (QString plugin, plugins) {
+		loader.setFileName(plugin);
+		if (loader.load()) {
+			QtDockProvider *provider = qobject_cast<QtDockProvider*>(loader.instance());
+			if (provider)
+				addProvider(provider);
+			else
+				qWarning("Unknow interface in plugin %s", qPrintable(plugin));
+		} else
+			qWarning("Unable to load plugin %s", qPrintable(plugin));
+	}
 }
 
 void QtDockManager::addProvider(QtDockProvider *provider)
