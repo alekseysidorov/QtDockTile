@@ -96,3 +96,5 @@ qtc-debugging-helper
 
 #mac shared libraries
 *.dylib*
+
+*.user

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>im-status-message-edit.svgz</file>
+    </qresource>
+</RCC>

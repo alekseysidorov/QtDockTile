@@ -24,7 +24,6 @@ QtDockTile::~QtDockTile()
 
 void QtDockTile::setIcon(const QIcon &icon)
 {
-	Q_D(QtDockTile);
 	manager()->setIcon(icon);
 }
 
@@ -45,7 +44,6 @@ QIcon QtDockTile::overlayIcon() const
 
 void QtDockTile::setMenu(QMenu *menu)
 {
-	Q_D(QtDockTile);
 	manager()->setMenu(menu);
 }
 

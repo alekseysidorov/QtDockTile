@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>330</width>
+    <height>370</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dock Tile example</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Badge text:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="lineEdit"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Progress indicator:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QSlider" name="horizontalSlider">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Alert</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QCheckBox" name="checkBox">
+      <property name="text">
+       <string>Show overlay icon</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>330</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <widget class="QMenu" name="menuSubelement">
+     <property name="title">
+      <string>Subelement</string>
+     </property>
+     <addaction name="element1"/>
+     <addaction name="element2"/>
+    </widget>
+    <addaction name="element"/>
+    <addaction name="separator"/>
+    <addaction name="menuSubelement"/>
+    <addaction name="actionElementWithIcon"/>
+    <addaction name="actionDisabledElement"/>
+    <addaction name="actionCheckableElement"/>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="element">
+   <property name="text">
+    <string>Element</string>
+   </property>
+  </action>
+  <action name="element1">
+   <property name="text">
+    <string>Element 1</string>
+   </property>
+  </action>
+  <action name="element2">
+   <property name="text">
+    <string>Element 2</string>
+   </property>
+  </action>
+  <action name="actionElementWithIcon">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/im-status-message-edit.svgz</normaloff>:/im-status-message-edit.svgz</iconset>
+   </property>
+   <property name="text">
+    <string>Element with icon</string>
+   </property>
+  </action>
+  <action name="actionDisabledElement">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Disabled element</string>
+   </property>
+  </action>
+  <action name="actionCheckableElement">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Checkable element</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

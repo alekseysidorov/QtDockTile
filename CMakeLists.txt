@@ -42,3 +42,4 @@ install(TARGETS qtdocktile
 )
 
 add_subdirectory(plugins)
+add_subdirectory(example)
