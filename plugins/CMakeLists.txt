@@ -12,18 +12,18 @@ macro(ADD_DOCKTILE_PLUGIN target)
 	endif()
 
 	qt4_wrap_ui(UIS_H ${FORMS})
-	moc_wrap_cpp(MOC_SRCS ${HDR})
+	moc_wrap_cpp(MOC_SRC ${HDR})
 
 	# This project will generate library, TODO use MODULE instead SHARED
-        add_library(${target} SHARED ${SRC} ${HDR} ${UIS_H} ${MM} ${MOC_SRCS})
+	add_library(${target} SHARED ${SRC} ${HDR} ${UIS_H} ${MM} ${MOC_SRC})
 
 	include_directories(${CMAKE_CURRENT_BINARY_DIR}
 		.
 	)
 
 	target_link_libraries(${target}
-		${QT_LIBRARIES}
 		qtdocktile
+		${QT_LIBRARIES}		
 	)
 
 	install(TARGETS ${target}

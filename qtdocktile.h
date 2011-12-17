@@ -3,9 +3,9 @@
 
 #include "qtdocktile_global.h"
 #include <QObject>
+#include <QIcon>
 
 class QMenu;
-class QIcon;
 class QtDockTilePrivate;
 class QTDOCKTILE_EXPORT QtDockTile : public QObject
 {
