@@ -8,7 +8,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set(QT_USE_QTGUI true)
 set(QT_USE_QTCORE true)
-set(CMAKE_AUTOMOC true)
 set(QT_MIN_VERSION "4.7.0")
 
 find_package(Qt4 REQUIRED)
@@ -21,8 +20,9 @@ file(GLOB HDR "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
 moc_wrap_cpp(MOC_SRCS ${HDR})
 
 # This project will generate library
-add_library(qtdocktile SHARED ${SRC} ${HDR} ${MOC_SRCS})
-add_definitions(-DQTDOCKTILE_LIBRARY)
+add_library(qtdocktile STATIC ${SRC} ${HDR} ${MOC_SRCS})
+#add_definitions(-DQTDOCKTILE_SHARED)
+add_definitions(-DQTDOCKTILE_STATIC)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}
         .

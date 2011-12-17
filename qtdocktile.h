@@ -10,7 +10,7 @@ class QtDockTilePrivate;
 class QTDOCKTILE_EXPORT QtDockTile : public QObject
 {
     Q_DECLARE_PRIVATE(QtDockTile)
-    Q_OBJECT
+	Q_OBJECT
 
 	Q_PROPERTY(QIcon icon READ icon WRITE setIcon NOTIFY iconChanged)
 	Q_PROPERTY(QMenu* menu  READ menu WRITE setMenu NOTIFY menuChanged)

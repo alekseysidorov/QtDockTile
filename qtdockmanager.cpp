@@ -7,7 +7,7 @@
 
 //some sugar
 #define _providers \
-    foreach (QtDockProvider *provider, usableProviders()) \
+	foreach (QtDockProvider *provider, usableProviders()) \
     provider \
 
 QtDockManager *QtDockManager::instance()
@@ -20,7 +20,7 @@ QtDockProviderList QtDockManager::usableProviders() const
 {
     //TODO remove foreach
     QtDockProviderList list;
-    foreach (QtDockProvider *provider, m_providers) {
+	foreach (QtDockProvider *provider, m_providers) {
         if (provider->isUsable())
             list.append(provider);
     }
@@ -98,7 +98,7 @@ QtDockManager::QtDockManager()
     foreach (QString plugin, plugins) {
         loader.setFileName(plugin);
         if (loader.load()) {
-            QtDockProvider *provider = qobject_cast<QtDockProvider*>(loader.instance());
+			QtDockProvider *provider = qobject_cast<QtDockProvider*>(loader.instance());
             if (provider)
                 addProvider(provider);
             else

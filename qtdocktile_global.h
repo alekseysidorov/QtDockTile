@@ -3,10 +3,14 @@
 
 #include <QtCore/qglobal.h>
 
-#if defined(QTDOCKTILE_LIBRARY)
-#  define QTDOCKTILE_EXPORT Q_DECL_EXPORT
+#ifndef QTDOCKTILE_STATIC
+#  if defined(QTDOCKTILE_SHARED)
+#    define QTDOCKTILE_EXPORT Q_DECL_EXPORT
+#  else
+#    define QTDOCKTILE_EXPORT Q_DECL_IMPORT
+#  endif
 #else
-#  define QTDOCKTILE_EXPORT Q_DECL_IMPORT
+#  define QTDOCKTILE_EXPORT
 #endif
 
 #endif // QTDOCKICON_GLOBAL_H

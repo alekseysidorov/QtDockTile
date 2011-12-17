@@ -1,6 +1,6 @@
 #ifndef TASKBAR_H
 #define TASKBAR_H
-#include <Windows.h>
+#include <windows.h>
 
 #ifdef TASKWRAPPER
 #	define EXPORT   extern "C" __declspec(dllexport)
@@ -42,7 +42,7 @@ EXPORT void setJumpLists(ActionInfo *list, size_t size);
 EXPORT void setApplicationId(const wchar_t *appId);
 EXPORT void setOverlayIcon(HWND winId, HICON icon, wchar_t *description);
 EXPORT void clearOverlayIcon(HWND winId);
-EXPORT void setProgress(HWND winId, int percents);
+EXPORT void setProgressValue(HWND winId, int percents);
 EXPORT void setProgressState(HWND winId, ProgressState state);
 
 #endif // TASKBAR_H

@@ -31,8 +31,8 @@ signals:
     void progressChanged(const int percent);
 protected:
     QtDockManager();
-    void addProvider(QtDockProvider *provider);
-    void removeProvider(QtDockProvider *provider);
+	void addProvider(QtDockProvider *provider);
+	void removeProvider(QtDockProvider *provider);
 private:
     QtDockProviderList m_providers;
     QIcon m_dockIcon;

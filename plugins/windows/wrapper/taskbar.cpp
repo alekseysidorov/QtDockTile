@@ -27,7 +27,7 @@ void clearOverlayIcon(HWND winId)
 
 }
 
-void setProgress(HWND winId, int percents)
+void setProgressValue(HWND winId, int percents)
 {
 	int progress = qBound(0, percents, 100);
 	ITaskbarList3 *taskbar;

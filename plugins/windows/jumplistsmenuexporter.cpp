@@ -52,5 +52,3 @@ void JumpListsMenuExporterPrivate::updateJumpLists()
 
 	setJumpLists(actionInfoList.data(), actionInfoList.size());
 }
-
-#include "jumplistsmenuexporter.moc"

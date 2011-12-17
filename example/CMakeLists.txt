@@ -10,7 +10,7 @@ moc_wrap_cpp(MOC_SRCS ${HDR})
 qt4_add_resources(QRC_SOURCES ${QRC})
 
 # This project will generate library
-add_executable(simpledock WIN32 MACOSX_BUNDLE ${SRC} ${HDR} ${UIS_H} ${QML_DIR} ${MOC_SRCS} ${QRC_SOURCES})
+add_executable(simpledock MACOSX_BUNDLE ${SRC} ${HDR} ${UIS_H} ${QML_DIR} ${MOC_SRCS} ${QRC_SOURCES})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}
     .

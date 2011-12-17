@@ -2,7 +2,7 @@
 #include "qtdockmanager_p.h"
 
 QtDockProvider::QtDockProvider(QObject *parent) :
-    QObject(parent)
+	QObject(parent)
 {
 }
 
