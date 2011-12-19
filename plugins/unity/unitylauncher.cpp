@@ -6,20 +6,22 @@
 
 #include <QDebug>
 
+
 template <typename T>
 void UnityLauncher::sendMessage(const char *name, const T &value)
 {
-	QString path = '/' + qAppName();
-	QString appPath = QString("application://%1.desktop").arg(qAppName());
-
-	QDBusMessage message = QDBusMessage::createSignal(path, "com.canonical.Unity.LauncherEntry", "Update");
+	QDBusMessage message = QDBusMessage::createSignal(appUri(), "com.canonical.Unity.LauncherEntry", "Update");
 	QVariantList args;
 	QVariantMap map;
 	map.insert(QLatin1String(name), value);
-	args << appPath
+	args << appDesktopUri()
 		 << map;
 	message.setArguments(args);
 	QDBusConnection::sessionBus().send(message);
+}
+
+void UnityLauncher::sendMessage(const QVariantMap &map)
+{
 }
 
 UnityLauncher::UnityLauncher(QObject *parent) :
@@ -38,9 +40,12 @@ bool UnityLauncher::isUsable() const
 
 void UnityLauncher::setMenu(QMenu *menu)
 {
-	if (menu)
-		m_menuExporter.reset(new DBusMenuExporter("/" + qAppName(), menu));
-	sendMessage("quicklist", menu ? "/" + qAppName() : QString());
+	if (menu) {
+		QString uri = appUri();
+		m_menuExporter.reset(new DBusMenuExporter(uri, menu));
+		sendMessage("quicklist", uri);
+	} else
+		sendMessage("quicklist", QString());
 }
 
 void UnityLauncher::setIcon(const QIcon &icon)
@@ -69,6 +74,16 @@ void UnityLauncher::setProgress(int percents)
 void UnityLauncher::alert(bool on)
 {
 	sendMessage("urgent", on);
+}
+
+QString UnityLauncher::appDesktopUri() const
+{
+	return QString("application://%1.desktop").arg(qAppName());
+}
+
+QString UnityLauncher::appUri() const
+{
+	return QString("/%1").arg(qAppName());
 }
 
 Q_EXPORT_PLUGIN2(UnityLauncher, UnityLauncher)
