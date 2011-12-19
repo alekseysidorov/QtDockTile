@@ -1,5 +1,6 @@
 #include "qtdockprovider.h"
 #include "qtdockmanager_p.h"
+#include <QApplication>
 
 QtDockProvider::QtDockProvider(QObject *parent) :
 	QObject(parent)
@@ -23,5 +24,10 @@ QString QtDockProvider::badge() const
 
 int QtDockProvider::progress() const
 {
-    return QtDockManager::instance()->progress();
+	return QtDockManager::instance()->progress();
+}
+
+QWidget *QtDockProvider::window() const
+{
+	return qApp->activeWindow();
 }

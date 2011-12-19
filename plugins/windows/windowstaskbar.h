@@ -16,6 +16,9 @@ public:
 	virtual void setBadge(const QString &badge);
 	virtual void setProgress(int percents);
 	virtual void alert(bool on);
+protected:
+	QPixmap createBadge(const QString &badge) const;
+	QSize overlayIconSize() const;
 };
 
 #endif // WINDOWSTASKBAR_H

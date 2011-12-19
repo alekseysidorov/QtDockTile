@@ -4,6 +4,7 @@
 #include <QLibraryInfo>
 #include <QDir>
 #include <QLibrary>
+#include <QApplication>
 
 //some sugar
 #define _providers \
@@ -82,7 +83,7 @@ int QtDockManager::progress() const
 
 void QtDockManager::alert(bool on)
 {
-    _providers->alert(on);
+	_providers->alert(on);
 }
 
 QtDockManager::QtDockManager()

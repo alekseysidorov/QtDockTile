@@ -63,5 +63,10 @@ int QtDockTile::progress() const
 
 void QtDockTile::alert(bool on)
 {
-    manager()->alert(on);
+	manager()->alert(on);
+}
+
+void QtDockTile::setBadge(int count)
+{
+	manager()->setBadge(QString::number(count));
 }

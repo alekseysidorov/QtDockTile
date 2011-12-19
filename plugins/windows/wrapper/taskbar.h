@@ -4,7 +4,6 @@
 
 #ifdef TASKWRAPPER
 #	define EXPORT   extern "C" __declspec(dllexport)
-#	define SegFault ((int(*)())0)
 #else
 #	define EXPORT   extern "C"
 #endif
@@ -40,7 +39,7 @@ EXPORT void setActionInvoker(ActionInvoker *pointer);
 EXPORT void setJumpLists(ActionInfo *list, size_t size);
 
 EXPORT void setApplicationId(const wchar_t *appId);
-EXPORT void setOverlayIcon(HWND winId, HICON icon, wchar_t *description);
+EXPORT void setOverlayIcon(HWND winId, HICON icon, wchar_t *description = 0);
 EXPORT void clearOverlayIcon(HWND winId);
 EXPORT void setProgressValue(HWND winId, int percents);
 EXPORT void setProgressState(HWND winId, ProgressState state);

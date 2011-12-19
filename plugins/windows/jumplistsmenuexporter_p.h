@@ -9,7 +9,10 @@ struct ActionInfoV2 : public ActionInfo
 {
 	~ActionInfoV2()
 	{
-
+		delete id;
+		delete name;
+		delete description;
+		delete data;
 	}
 };
 typedef QVector<ActionInfoV2> ActionInfoList;

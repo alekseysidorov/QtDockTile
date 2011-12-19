@@ -22,6 +22,7 @@ public:
 	QIcon icon() const;
 	QString badge() const;
 	int progress() const;
+	QWidget *window() const;
 signals:
 	void isUsableChanged(bool set);
 };
