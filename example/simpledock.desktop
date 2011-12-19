@@ -1,8 +1,21 @@
 [Desktop Entry]
-Name=simpledock
-Type=Application
+Categories=Qt;Development;
+Comment[ru]=Simple dock tile example for Qt
 Comment=Simple dock tile example for Qt
 Exec=simpledock
+GenericName[ru]=
+GenericName=
+Icon=applications-system
+MimeType=
+Name[ru]=simpledock
+Name=simpledock
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
 TryExec=simpledock
-Icon=simpledock
-Categories=Qt;Development;
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

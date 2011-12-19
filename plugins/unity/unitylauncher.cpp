@@ -10,18 +10,20 @@
 template <typename T>
 void UnityLauncher::sendMessage(const char *name, const T &value)
 {
-	QDBusMessage message = QDBusMessage::createSignal(appUri(), "com.canonical.Unity.LauncherEntry", "Update");
-	QVariantList args;
 	QVariantMap map;
 	map.insert(QLatin1String(name), value);
-	args << appDesktopUri()
-		 << map;
-	message.setArguments(args);
-	QDBusConnection::sessionBus().send(message);
+	sendMessage(map);
 }
 
 void UnityLauncher::sendMessage(const QVariantMap &map)
 {
+	QDBusMessage message = QDBusMessage::createSignal(appUri(), "com.canonical.Unity.LauncherEntry", "Update");
+	QVariantList args;
+	args << appDesktopUri()
+			<< map;
+	message.setArguments(args);
+	if (!QDBusConnection::sessionBus().send(message))
+		qWarning("Unable to send message");
 }
 
 UnityLauncher::UnityLauncher(QObject *parent) :
@@ -60,15 +62,19 @@ void UnityLauncher::setBadge(const QString &badge)
 	if (!ok)
 		qWarning("Unity launcher doesn't support string badges");
 
-	sendMessage("count", count);
-	sendMessage("count-visible", count > 0);
+	QVariantMap map;
+	map.insert(QLatin1String("count"), count);
+	map.insert(QLatin1String("count-visible"), count > 0);
+	sendMessage(map);
 }
 
 void UnityLauncher::setProgress(int percents)
 {
 	int progress = qBound(0, percents, 100);
-	sendMessage("progress", static_cast<double>(progress)/100.0);
-	sendMessage("progress-visible", progress > 0);
+	QVariantMap map;
+	map.insert(QLatin1String("progress"), static_cast<double>(progress)/100.0);
+	map.insert(QLatin1String("progress-visible"), progress > 0);
+	sendMessage(map);
 }
 
 void UnityLauncher::alert(bool on)
