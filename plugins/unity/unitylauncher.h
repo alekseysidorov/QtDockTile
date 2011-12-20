@@ -8,7 +8,6 @@ class DBusMenuExporter;
 class UnityLauncher : public QtDockProvider
 {
 	Q_OBJECT
-	Q_INTERFACES(QtDockProvider)
 public:
 	explicit UnityLauncher(QObject *parent = 0);
 	virtual ~UnityLauncher();

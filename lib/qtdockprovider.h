@@ -6,17 +6,27 @@
 
 class QIcon;
 class QMenu;
-class QTDOCKTILE_EXPORT QtDockProvider : public QObject
+
+class QTDOCKTILE_EXPORT QtDockProviderInterface
 {
-	Q_OBJECT
 public:
-	explicit QtDockProvider(QObject *parent = 0);
+	virtual ~QtDockProviderInterface() {}
 	virtual bool isUsable() const = 0;
 	virtual void setMenu(QMenu *menu) = 0;
 	virtual void setIcon(const QIcon &icon) = 0;
 	virtual void setBadge(const QString &badge) = 0;
 	virtual void setProgress(int percents) = 0;
 	virtual void alert(bool on) = 0;
+
+};
+Q_DECLARE_INTERFACE(QtDockProviderInterface, "org.DockProvider")
+
+class QTDOCKTILE_EXPORT QtDockProvider : public QObject, public QtDockProviderInterface
+{
+	Q_OBJECT
+	Q_INTERFACES(QtDockProviderInterface)
+public:
+	explicit QtDockProvider(QObject *parent = 0);
 
 	QMenu *menu() const;
 	QIcon icon() const;
@@ -27,6 +37,6 @@ signals:
 	void isUsableChanged(bool set);
 };
 
-Q_DECLARE_INTERFACE(QtDockProvider, "org.DockProvider")
+
 
 #endif // QTDOCKPROVIDER_H

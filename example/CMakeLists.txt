@@ -14,7 +14,7 @@ add_executable(simpledock MACOSX_BUNDLE ${SRC} ${HDR} ${UIS_H} ${QML_DIR} ${MOC_
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}
     .
-    ..
+    ../lib
 )
 
 target_link_libraries(simpledock ${QT_LIBRARIES} ${QT_QTMAIN_LIBRARY} qtdocktile)

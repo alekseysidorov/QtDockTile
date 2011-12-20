@@ -29,6 +29,7 @@ void UnityLauncher::sendMessage(const QVariantMap &map)
 UnityLauncher::UnityLauncher(QObject *parent) :
 	QtDockProvider(parent)
 {
+	qDebug() << Q_FUNC_INFO;
 }
 
 UnityLauncher::~UnityLauncher()
