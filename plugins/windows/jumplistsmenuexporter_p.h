@@ -23,6 +23,9 @@ class JumpListsMenuExporterPrivate
 	Q_DECLARE_PUBLIC(JumpListsMenuExporter)
 public:
 	JumpListsMenuExporterPrivate(JumpListsMenuExporter *q) : q_ptr(q) {}
+	ActionInfoList serialize(QMenu *menu);
+	ActionInfoV2 serialize(QAction *action);
+
 	JumpListsMenuExporter *q_ptr;
 	void updateJumpLists();
 	QWeakPointer<QMenu> menu;

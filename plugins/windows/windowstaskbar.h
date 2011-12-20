@@ -6,7 +6,6 @@
 class WindowsTaskBar : public QtDockProvider
 {
 	Q_OBJECT
-	Q_INTERFACES(QtDockProvider)
 public:
 	explicit WindowsTaskBar(QObject *parent = 0);
 	virtual ~WindowsTaskBar();
