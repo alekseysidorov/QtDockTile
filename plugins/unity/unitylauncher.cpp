@@ -59,7 +59,7 @@ void UnityLauncher::setIcon(const QIcon &icon)
 void UnityLauncher::setBadge(const QString &badge)
 {
 	bool ok;
-	quint64 count = badge.toUInt(&ok);
+	qint64 count = badge.toInt(&ok);
 	if (!ok)
 		qWarning("Unity launcher doesn't support string badges");
 
