@@ -17,7 +17,6 @@ public:
     virtual void setProgress(int percents);
     virtual void alert(bool on);
 private:
-    void updateDockIcon();
 };
 
 #endif // MACDOCKTILE_H
