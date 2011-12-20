@@ -7,7 +7,6 @@ class QtMacDockTilePrivate;
 class QtMacDockTile : public QtDockProvider
 {
     Q_OBJECT
-    Q_INTERFACES(QtDockProvider)
 public:
     QtMacDockTile(QObject *parent = 0);
     virtual ~QtMacDockTile();

@@ -1,7 +1,6 @@
 #include "macdocktile.h"
 
 #import <AppKit/NSDockTile.h>
-#import <Cocoa/Cocoa.h>
 #include <QApplication>
 #include <QIcon>
 #include <QPainter>
@@ -12,6 +11,7 @@ extern void qt_mac_set_dock_menu(QMenu *);
 QtMacDockTile::QtMacDockTile(QObject *parent) :
     QtDockProvider(parent)
 {
+    qDebug("%s", Q_FUNC_INFO);
 }
 
 QtMacDockTile::~QtMacDockTile()

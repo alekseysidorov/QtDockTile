@@ -99,9 +99,9 @@ QtDockManager::QtDockManager()
     foreach (QString plugin, plugins) {
         loader.setFileName(plugin);
         if (loader.load()) {
-			QtDockProvider *provider = qobject_cast<QtDockProvider*>(loader.instance());
+            QtDockProviderInterface *provider = qobject_cast<QtDockProviderInterface*>(loader.instance());
             if (provider)
-                addProvider(provider);
+                addProvider(static_cast<QtDockProvider*>(provider));
             else
                 qWarning("Unknow interface in plugin %s", qPrintable(plugin));
         } else
