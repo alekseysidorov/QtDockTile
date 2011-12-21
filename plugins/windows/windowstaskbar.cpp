@@ -5,9 +5,11 @@
 #include <QApplication>
 #include <QPainter>
 #include <QStyle>
+#include "jumplistsmenuexporter.h"
 
 WindowsTaskBar::WindowsTaskBar(QObject *parent) :
-	QtDockProvider(parent)
+	QtDockProvider(parent),
+	m_menuExporter(new JumpListsMenuExporter(this))
 {
 }
 
@@ -22,6 +24,7 @@ bool WindowsTaskBar::isUsable() const
 
 void WindowsTaskBar::setMenu(QMenu *menu)
 {
+	m_menuExporter->setMenu(menu);
 }
 
 void WindowsTaskBar::setIcon(const QIcon &icon)

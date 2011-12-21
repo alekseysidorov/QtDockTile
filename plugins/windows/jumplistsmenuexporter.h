@@ -10,7 +10,8 @@ class JumpListsMenuExporter : public QObject
 	Q_OBJECT
 	Q_DECLARE_PRIVATE(JumpListsMenuExporter)
 public:
-	explicit JumpListsMenuExporter(QMenu *menu = 0);
+	explicit JumpListsMenuExporter(QObject *parent = 0);
+	explicit JumpListsMenuExporter(QMenu *menu, QObject *parent= 0);
 	~JumpListsMenuExporter();
 	void setMenu(QMenu *menu);
 	QMenu *menu() const;

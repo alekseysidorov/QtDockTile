@@ -1,19 +1,17 @@
 #include "jumplistsmenuexporter_p.h"
+#include <QUuid>
+#include <QApplication>
+#include <QStyle>
 
-struct Data
+JumpListsMenuExporter::JumpListsMenuExporter(QObject *parent) :
+	QObject(parent),
+	d_ptr(new JumpListsMenuExporterPrivate(this))
 {
-	QWeakPointer<QAction> action;
-};
-
-void invokeQAction(void *pointer)
-{
-	Data *data = reinterpret_cast<Data*>(pointer);
-	if (data->action)
-		data->action.data()->trigger();
 }
 
-JumpListsMenuExporter::JumpListsMenuExporter(QMenu *menu) :
-	QObject(menu),
+
+JumpListsMenuExporter::JumpListsMenuExporter(QMenu *menu, QObject *parent) :
+	QObject(parent),
 	d_ptr(new JumpListsMenuExporterPrivate(this))
 {
 	setMenu(menu);
@@ -50,20 +48,52 @@ ActionInfoList JumpListsMenuExporterPrivate::serialize(QMenu *menu)
 	foreach (QAction *action, menu->actions()) {
 		list.append(serialize(action));
 		if (action->menu())
-			foreach (ActionInfoV2 info, serialize(action->menu()))
+			foreach (ActionInfo info, serialize(action->menu()))
 				list.append(info);
 	}
 	return list;
 }
 
-ActionInfoV2 JumpListsMenuExporterPrivate::serialize(QAction *action)
+ActionInfo JumpListsMenuExporterPrivate::serialize(QAction *action)
 {
-	ActionInfoV2 info;
+	QString id = QUuid::createUuid().toString();
+
+	Data *data = new Data;
+
+	data->action = action;
+	data->id = toWCharArray(id);
+	data->name = toWCharArray(action->text());
+	data->description = toWCharArray(action->toolTip());
+
+	ActionType type = (action->isSeparator() || action->menu()) ? ActionTypeSeparator
+																: ActionTypeNormal;
+	ActionInfo info;
+	info.id = data->id.data();
+	info.name = data->name.data();
+	info.description = data->description.data();
+	info.icon = action->icon().pixmap(pixmapSize()).toWinHICON();
+	info.type = type;
+	info.data = data;
 	return info;
+}
+
+WCharArray JumpListsMenuExporterPrivate::toWCharArray(const QString &str)
+{
+	WCharArray array(str.length() + 1);
+	str.toWCharArray(array.data());
+	return array;
+}
+
+QSize JumpListsMenuExporterPrivate::pixmapSize() const
+{
+	int size = qApp->style()->pixelMetric(QStyle::PM_ListViewIconSize);
+	return QSize(size, size);
 }
 
 void JumpListsMenuExporterPrivate::updateJumpLists()
 {
+	foreach (ActionInfo info, actionInfoList)
+		delete info.data;
 	actionInfoList.clear();
 	if(menu.isNull())
 		return;

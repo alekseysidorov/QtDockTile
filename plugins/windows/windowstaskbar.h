@@ -3,6 +3,7 @@
 #include <qtdockprovider.h>
 #include <QWidget>
 
+class JumpListsMenuExporter;
 class WindowsTaskBar : public QtDockProvider
 {
 	Q_OBJECT
@@ -18,6 +19,8 @@ public:
 protected:
 	QPixmap createBadge(const QString &badge) const;
 	QSize overlayIconSize() const;
+private:
+	JumpListsMenuExporter *m_menuExporter;
 };
 
 #endif // WINDOWSTASKBAR_H
