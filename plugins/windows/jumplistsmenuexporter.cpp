@@ -1,6 +1,5 @@
 #include "jumplistsmenuexporter_p.h"
 #include <QUuid>
-#include <QApplication>
 #include <QStyle>
 
 JumpListsMenuExporter::JumpListsMenuExporter(QObject *parent) :
@@ -88,6 +87,12 @@ QSize JumpListsMenuExporterPrivate::pixmapSize() const
 {
 	int size = qApp->style()->pixelMetric(QStyle::PM_ListViewIconSize);
 	return QSize(size, size);
+}
+
+void JumpListsMenuExporterPrivate::setAppId(const QString &id)
+{
+	appId = toWCharArray(id);
+	setApplicationId(appId.data());
 }
 
 void JumpListsMenuExporterPrivate::updateJumpLists()

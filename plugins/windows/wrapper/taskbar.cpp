@@ -1,5 +1,6 @@
 #include "taskbar.h"
 #include <ShObjIdl.h>
+#include "jumplistsmanager.h"
 
 static ITaskbarList3 *windowsTaskBar()
 {
@@ -9,19 +10,23 @@ static ITaskbarList3 *windowsTaskBar()
 	return taskbar;
 }
 
-void setActionInvoker(ActionInvoker *pointer)
+void setActionInvoker(ActionInvoker pointer)
 {
-
+	jumpListsManager()->setActionInvoker(pointer);
 }
 
 void setJumpLists(ActionInfo *list, size_t size)
 {
-
+	for (size_t i = 0; i != size; i++) {
+		ActionInfo info = list[i];
+		ActionInvoker invoker = jumpListsManager()->actionInvoker();
+		invoker(info.data);
+	}
 }
 
 void setApplicationId(const wchar_t *appId)
 {
-
+	jumpListsManager()->setAppId(appId);
 }
 
 void setOverlayIcon(HWND winId, HICON icon, wchar_t *description)

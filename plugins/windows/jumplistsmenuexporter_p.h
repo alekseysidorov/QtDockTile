@@ -3,7 +3,9 @@
 #include "jumplistsmenuexporter.h"
 #include <QWeakPointer>
 #include <QMenu>
+#include <QApplication>
 #include "wrapper/taskbar.h"
+#include <QDebug>
 
 struct ActionInfoV2 : public ActionInfo
 {
@@ -28,8 +30,10 @@ struct Data
 void invokeQAction(void *pointer)
 {
 	Data *data = reinterpret_cast<Data*>(pointer);
-	if (data->action)
+	if (data->action) {
+		qDebug() << data->action.data();
 		data->action.data()->trigger();
+	}
 }
 
 class JumpListsMenuExporter;
@@ -37,16 +41,26 @@ class JumpListsMenuExporterPrivate
 {
 	Q_DECLARE_PUBLIC(JumpListsMenuExporter)
 public:
-	JumpListsMenuExporterPrivate(JumpListsMenuExporter *q) : q_ptr(q) {}
+	JumpListsMenuExporterPrivate(JumpListsMenuExporter *q) : q_ptr(q)
+	{
+		setAppId(qAppName());
+		setActionInvoker(invokeQAction);
+	}
+	~JumpListsMenuExporterPrivate()
+	{
+		setApplicationId(0);
+	}
 	ActionInfoList serialize(QMenu *menu);
 	ActionInfo serialize(QAction *action);
 	WCharArray toWCharArray(const QString &str);
 	QSize pixmapSize() const;
+	void setAppId(const QString &id);
 
 	JumpListsMenuExporter *q_ptr;
 	void updateJumpLists();
 	QWeakPointer<QMenu> menu;
 	ActionInfoList actionInfoList;
+	WCharArray appId;
 };
 
 

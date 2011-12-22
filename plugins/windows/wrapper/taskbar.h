@@ -33,9 +33,9 @@ struct ActionInfo
 	void *data;
 };
 
-typedef void (*ActionInvoker)(void *data);
+typedef void (*ActionInvoker)(void*);
 
-EXPORT void setActionInvoker(ActionInvoker *pointer);
+EXPORT void setActionInvoker(ActionInvoker pointer);
 EXPORT void setJumpLists(ActionInfo *list, size_t size);
 
 EXPORT void setApplicationId(const wchar_t *appId);
