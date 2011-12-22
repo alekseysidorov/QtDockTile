@@ -19,5 +19,8 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}
 
 target_link_libraries(simpledock ${QT_LIBRARIES} ${QT_QTMAIN_LIBRARY} qtdocktile)
 
-install(FILES simpledock.desktop DESTINATION share/applications)
+if(UNIX AND NOT APPLE)
+    install(FILES simpledock.desktop DESTINATION share/applications)
+endif()
+
 install(TARGETS simpledock DESTINATION bin)
