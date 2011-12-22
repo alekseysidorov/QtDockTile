@@ -27,11 +27,6 @@ void WindowsTaskBar::setMenu(QMenu *menu)
 	m_menuExporter->setMenu(menu);
 }
 
-void WindowsTaskBar::setIcon(const QIcon &icon)
-{
-	qApp->setWindowIcon(icon);
-}
-
 void WindowsTaskBar::setBadge(const QString &badge)
 {
 	if (badge.isEmpty())

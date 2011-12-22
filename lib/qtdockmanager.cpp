@@ -28,23 +28,6 @@ QtDockProviderList QtDockManager::usableProviders() const
     return list;
 }
 
-void QtDockManager::setIcon(const QIcon &icon)
-{
-    m_dockIcon = icon;
-    _providers->setIcon(icon);
-    emit iconChanged(icon);
-}
-
-QIcon QtDockManager::icon() const
-{
-    return m_dockIcon;
-}
-
-QIcon QtDockManager::overlayIcon() const
-{
-    return m_overlayIcon;
-}
-
 void QtDockManager::setMenu(QMenu *menu)
 {
     m_menu = menu;
