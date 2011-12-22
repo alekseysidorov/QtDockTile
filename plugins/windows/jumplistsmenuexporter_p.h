@@ -7,12 +7,12 @@
 #include "wrapper/taskbar.h"
 #include <QDebug>
 
+struct Data;
 struct ActionInfoV2 : public ActionInfo
 {
 	~ActionInfoV2()
 	{
-		delete data;
-		data = 0;
+		qDebug() << Q_FUNC_INFO;
 	}
 };
 

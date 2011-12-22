@@ -18,6 +18,9 @@ JumpListsMenuExporter::JumpListsMenuExporter(QMenu *menu, QObject *parent) :
 
 JumpListsMenuExporter::~JumpListsMenuExporter()
 {
+	Q_D(JumpListsMenuExporter);
+	d->actionInfoList.clear();
+	d->updateJumpLists();
 }
 
 void JumpListsMenuExporter::setMenu(QMenu *menu)
@@ -66,7 +69,7 @@ ActionInfo JumpListsMenuExporterPrivate::serialize(QAction *action)
 
 	ActionType type = (action->isSeparator() || action->menu()) ? ActionTypeSeparator
 																: ActionTypeNormal;
-	ActionInfo info;
+	ActionInfoV2 info;
 	info.id = data->id.data();
 	info.name = data->name.data();
 	info.description = data->description.data();
@@ -97,12 +100,12 @@ void JumpListsMenuExporterPrivate::setAppId(const QString &id)
 
 void JumpListsMenuExporterPrivate::updateJumpLists()
 {
+	ActionInfoList list;
+	if(!menu.isNull()) {
+		list = serialize(menu.data());
+		setJumpLists(list.data(), list.size());
+	}
 	foreach (ActionInfo info, actionInfoList)
 		delete info.data;
-	actionInfoList.clear();
-	if(menu.isNull())
-		return;
-
-	actionInfoList = serialize(menu.data());
-	setJumpLists(actionInfoList.data(), actionInfoList.size());
+	actionInfoList = list;
 }
