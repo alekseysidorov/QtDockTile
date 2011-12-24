@@ -63,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>328</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -91,15 +91,24 @@
    <property name="text">
     <string>Element</string>
    </property>
+   <property name="toolTip">
+    <string>A very simple element, as you see.</string>
+   </property>
   </action>
   <action name="element1">
    <property name="text">
     <string>Element 1</string>
    </property>
+   <property name="toolTip">
+    <string>First element? Hm…</string>
+   </property>
   </action>
   <action name="element2">
    <property name="text">
     <string>Element 2</string>
+   </property>
+   <property name="toolTip">
+    <string>Oh my god! Here's the second one!</string>
    </property>
   </action>
   <action name="actionElementWithIcon">
@@ -110,6 +119,9 @@
    <property name="text">
     <string>Element with icon</string>
    </property>
+   <property name="toolTip">
+    <string>Wow! An icon? So cool.</string>
+   </property>
   </action>
   <action name="actionDisabledElement">
    <property name="enabled">
@@ -117,6 +129,9 @@
    </property>
    <property name="text">
     <string>Disabled element</string>
+   </property>
+   <property name="toolTip">
+    <string>What happened? Wha…</string>
    </property>
   </action>
   <action name="actionCheckableElement">
@@ -128,6 +143,9 @@
    </property>
    <property name="text">
     <string>Checkable element</string>
+   </property>
+   <property name="toolTip">
+    <string>Let's check it.</string>
    </property>
   </action>
  </widget>

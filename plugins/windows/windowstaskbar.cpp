@@ -45,10 +45,14 @@ void WindowsTaskBar::setProgress(int percents)
 
 void WindowsTaskBar::alert(bool on)
 {
-	if (on)
-		qApp->alert(window(), 5000);
-	else
-		qApp->alert(window());
+	if (on) {
+		FLASHWINFO fi = {0};
+		fi.cbSize  = sizeof(fi);
+		fi.dwFlags = FLASHW_TRAY;
+		fi.hwnd    = window()->winId();
+		fi.uCount  = 1;
+		FlashWindowEx(&fi);
+	}
 }
 
 QPixmap WindowsTaskBar::createBadge(const QString &badge) const

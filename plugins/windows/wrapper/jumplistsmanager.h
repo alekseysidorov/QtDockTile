@@ -4,6 +4,9 @@
 
 typedef void (*ActionInvoker)(void *data);
 struct ActionInfo;
+struct ICustomDestinationList;
+struct IObjectCollection;
+
 class JumpListsManager
 {
 public:
@@ -12,6 +15,7 @@ public:
 	//TODO
 	void beginList();
 	void addTask(ActionInfo *info);
+	void deleteList(const wchar_t *appId = 0);
 	void addSeparator();
 	void beginCategory(const wchar_t *name);
 	void commitList();
@@ -23,6 +27,8 @@ protected:
 private:
 	const wchar_t *m_appId;
 	ActionInvoker m_invoker;
+	ICustomDestinationList *m_destList;
+	IObjectCollection *m_destListContent;
 };
 
 inline JumpListsManager *jumpListsManager()
