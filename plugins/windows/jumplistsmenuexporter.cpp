@@ -48,7 +48,13 @@ ActionInfoList JumpListsMenuExporterPrivate::serialize(QMenu *menu)
 {
 	ActionInfoList list;
 	foreach (QAction *action, menu->actions()) {
-		list.append(serialize(action));
+		//Don't serialize unsupported type of actions. Only invokable actions is supported by platform
+		if (!action->menu()
+				|| !action->isVisible()
+				|| !action->isEnabled()
+				|| !action->isCheckable())
+			list.append(serialize(action));
+
 		if (action->menu())
 			foreach (ActionInfo info, serialize(action->menu()))
 				list.append(info);
@@ -67,8 +73,8 @@ ActionInfo JumpListsMenuExporterPrivate::serialize(QAction *action)
 	data->name = toWCharArray(action->text());
 	data->description = toWCharArray(action->toolTip());
 
-	ActionType type = (action->isSeparator() || action->menu()) ? ActionTypeSeparator
-																: ActionTypeNormal;
+	ActionType type = action->isSeparator() ? ActionTypeSeparator
+											: ActionTypeNormal;
 	ActionInfoV2 info;
 	info.id = data->id.data();
 	info.name = data->name.data();
