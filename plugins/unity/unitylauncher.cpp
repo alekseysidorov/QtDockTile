@@ -51,11 +51,6 @@ void UnityLauncher::setMenu(QMenu *menu)
 		sendMessage("quicklist", QString());
 }
 
-void UnityLauncher::setIcon(const QIcon &icon)
-{
-	qApp->setWindowIcon(icon);
-}
-
 void UnityLauncher::setBadge(const QString &badge)
 {
 	bool ok;

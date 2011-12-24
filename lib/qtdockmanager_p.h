@@ -12,10 +12,6 @@ public:
     static QtDockManager *instance();
     QtDockProviderList usableProviders() const;
 
-    void setIcon(const QIcon &icon);
-    QIcon icon() const;
-    void setOverlayIcon(const QIcon &icon);
-    QIcon overlayIcon() const;
     void setMenu(QMenu *menu);
     QMenu *menu() const;
     //FIXME may be unusable on some platforms

@@ -13,7 +13,6 @@ public:
 	virtual ~QtDockProviderInterface() {}
 	virtual bool isUsable() const = 0;
 	virtual void setMenu(QMenu *menu) = 0;
-	virtual void setIcon(const QIcon &icon) = 0;
 	virtual void setBadge(const QString &badge) = 0;
 	virtual void setProgress(int percents) = 0;
 	virtual void alert(bool on) = 0;
@@ -29,7 +28,6 @@ public:
 	explicit QtDockProvider(QObject *parent = 0);
 
 	QMenu *menu() const;
-	QIcon icon() const;
 	QString badge() const;
 	int progress() const;
 	QWidget *window() const;

@@ -6,7 +6,12 @@ moc_wrap_cpp(MOC_SRC ${HDR})
 # This project will generate library
 add_library(qtdocktile SHARED ${SRC} ${HDR} ${MOC_SRC})
 add_definitions(-DQTDOCKTILE_SHARED)
-#add_definitions(-DQTDOCKTILE_STATIC)
+
+set_target_properties(qtdocktile PROPERTIES
+        VERSION ${CMAKE_QTDOCKTILE_VERSION_STRING}
+        SOVERSION ${CMAKE_QTDOCKTILE_VERSION_MAJOR}
+        DEFINE_SYMBOL QTDOCKTILE_SHARED
+)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}
         .

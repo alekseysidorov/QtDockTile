@@ -10,14 +10,14 @@ moc_wrap_cpp(MOC_SRC ${HDR})
 qt4_add_resources(QRC_SOURCES ${QRC})
 
 # This project will generate library
-add_executable(simpledock MACOSX_BUNDLE ${SRC} ${HDR} ${UIS_H} ${QML_DIR} ${MOC_SRC} ${QRC_SOURCES})
+add_executable(simpledock MACOSX_BUNDLE WIN32 ${SRC} ${HDR} ${UIS_H} ${QML_DIR} ${MOC_SRC} ${QRC_SOURCES})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}
     .
     ../lib
 )
 
-target_link_libraries(simpledock ${QT_LIBRARIES} ${QT_QTMAIN_LIBRARY} qtdocktile)
+target_link_libraries(simpledock qtdocktile ${QT_LIBRARIES} ${QT_QTMAIN_LIBRARY})
 
 if(UNIX AND NOT APPLE)
     install(FILES simpledock.desktop DESTINATION share/applications)

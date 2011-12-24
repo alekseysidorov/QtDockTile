@@ -148,11 +148,6 @@ void QtMacDockTile::setMenu(QMenu *menu)
     qt_mac_set_dock_menu(menu);
 }
 
-void QtMacDockTile::setIcon(const QIcon &icon)
-{
-    qApp->setWindowIcon(icon);
-}
-
 void QtMacDockTile::setBadge(const QString &badge)
 {
     const char *utf8String = badge.toUtf8().constData();

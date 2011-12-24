@@ -12,11 +12,6 @@ QMenu *QtDockProvider::menu() const
     return QtDockManager::instance()->menu();
 }
 
-QIcon QtDockProvider::icon() const
-{
-    return QtDockManager::instance()->icon();
-}
-
 QString QtDockProvider::badge() const
 {
     return QtDockManager::instance()->badge();

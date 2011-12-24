@@ -28,23 +28,6 @@ QtDockProviderList QtDockManager::usableProviders() const
     return list;
 }
 
-void QtDockManager::setIcon(const QIcon &icon)
-{
-    m_dockIcon = icon;
-    _providers->setIcon(icon);
-    emit iconChanged(icon);
-}
-
-QIcon QtDockManager::icon() const
-{
-    return m_dockIcon;
-}
-
-QIcon QtDockManager::overlayIcon() const
-{
-    return m_overlayIcon;
-}
-
 void QtDockManager::setMenu(QMenu *menu)
 {
     m_menu = menu;
@@ -99,9 +82,9 @@ QtDockManager::QtDockManager()
     foreach (QString plugin, plugins) {
         loader.setFileName(plugin);
         if (loader.load()) {
-            QtDockProviderInterface *provider = qobject_cast<QtDockProviderInterface*>(loader.instance());
+			QtDockProvider *provider = qobject_cast<QtDockProvider*>(loader.instance());
             if (provider)
-                addProvider(static_cast<QtDockProvider*>(provider));
+				addProvider(provider);
             else
                 qWarning("Unknow interface in plugin %s", qPrintable(plugin));
         } else

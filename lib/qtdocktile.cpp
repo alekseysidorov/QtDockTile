@@ -12,23 +12,12 @@ QtDockTile::QtDockTile(QObject *parent) :
     QObject(parent)
 {
     connect(manager(), SIGNAL(badgeChanged(QString)), SIGNAL(badgeChanged(QString)));
-    connect(manager(), SIGNAL(iconChanged(QIcon)), SIGNAL(iconChanged(QIcon)));
     connect(manager(), SIGNAL(menuChanged(QMenu*)), SIGNAL(menuChanged(QMenu*)));
     connect(manager(), SIGNAL(progressChanged(int)), SIGNAL(progressChanged(int)));
 }
 
 QtDockTile::~QtDockTile()
 {
-}
-
-void QtDockTile::setIcon(const QIcon &icon)
-{
-    manager()->setIcon(icon);
-}
-
-QIcon QtDockTile::icon() const
-{
-    return manager()->icon();
 }
 
 void QtDockTile::setMenu(QMenu *menu)
