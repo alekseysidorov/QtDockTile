@@ -28,6 +28,11 @@ void setJumpLists(ActionInfo *list, size_t size)
 	jumpListsManager()->commitList();
 }
 
+void deleteJumpLists()
+{
+	jumpListsManager()->deleteList();
+}
+
 void setApplicationId(const wchar_t *appId)
 {
 	jumpListsManager()->setAppId(appId);

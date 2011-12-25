@@ -20,6 +20,8 @@ protected:
 	QSize overlayIconSize() const;
 private:
 	JumpListsMenuExporter *m_menuExporter;
+private slots:
+	void deleteJL();
 };
 
 #endif // WINDOWSTASKBAR_H

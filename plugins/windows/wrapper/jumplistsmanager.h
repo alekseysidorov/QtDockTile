@@ -1,6 +1,7 @@
 #ifndef JUMPLISTSMANAGER_H
 #define JUMPLISTSMANAGER_H
 #include "windows.h"
+#include <string>
 
 typedef void (*ActionInvoker)(void *data);
 struct ActionInfo;
@@ -29,6 +30,10 @@ private:
 	ActionInvoker m_invoker;
 	ICustomDestinationList *m_destList;
 	IObjectCollection *m_destListContent;
+	std::wstring m_wrapperPath;
+
+	std::wstring makeArgs(ActionInfo *info);
+	static void handlerCallback(const char *);
 };
 
 inline JumpListsManager *jumpListsManager()

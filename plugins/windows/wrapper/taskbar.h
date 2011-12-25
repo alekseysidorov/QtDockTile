@@ -37,6 +37,7 @@ typedef void (*ActionInvoker)(void*);
 
 EXPORT void setActionInvoker(ActionInvoker pointer);
 EXPORT void setJumpLists(ActionInfo *list, size_t size);
+EXPORT void deleteJumpLists();
 
 EXPORT void setApplicationId(const wchar_t *appId);
 EXPORT void setOverlayIcon(HWND winId, HICON icon, wchar_t *description = 0);
