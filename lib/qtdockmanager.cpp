@@ -97,6 +97,11 @@ QtDockManager::QtDockManager()
 	}
 }
 
+QtDockManager::~QtDockManager()
+{
+	qDeleteAll(m_providers);
+}
+
 void QtDockManager::addProvider(QtDockProvider *provider)
 {
 	m_providers.append(provider);

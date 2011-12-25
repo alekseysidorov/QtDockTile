@@ -48,7 +48,6 @@ public:
 	}
 	~JumpListsMenuExporterPrivate()
 	{
-		setApplicationId(0);
 	}
 	ActionInfoList serialize(QMenu *menu);
 	ActionInfo serialize(QAction *action);

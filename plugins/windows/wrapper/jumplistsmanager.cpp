@@ -1,8 +1,10 @@
 #include "jumplistsmanager.h"
 #include "taskbar.h"
+#include "handling.h"
 #include <ShObjIdl.h>
 #include <Propvarutil.h>
 #include <Propkey.h>
+#include <string>
 
 JumpListsManager *JumpListsManager::instance()
 {
@@ -48,8 +50,8 @@ void JumpListsManager::addTask(ActionInfo *info)
 	if (FAILED(res))
 		return;
 	task->SetDescription(info->description);
-	task->SetPath(L"prog");
-	task->SetArguments(L"args");
+	task->SetPath(L"rundll32.exe");
+	task->SetArguments(makeArgs(info).c_str());
 
 	IPropertyStore *title;
 	PROPVARIANT titlepv;
@@ -70,9 +72,15 @@ void JumpListsManager::addTask(ActionInfo *info)
 
 void JumpListsManager::deleteList(const wchar_t *appId)
 {
-	beginList();
-	m_destList->DeleteList(appId);
-	commitList();
+	if (!appId)
+		appId = m_appId;
+	ICustomDestinationList *list;
+	CoInitialize(0);
+	HRESULT res = CoCreateInstance(CLSID_DestinationList, 0, CLSCTX_INPROC_SERVER, IID_ICustomDestinationList, (void**)&list);
+	if (FAILED(res))
+		return;
+	res = list->DeleteList(appId);
+	list->Release();
 }
 
 void JumpListsManager::addSeparator()
@@ -117,6 +125,7 @@ void JumpListsManager::commitList()
 void JumpListsManager::setActionInvoker(ActionInvoker pointer)
 {
 	m_invoker = pointer;
+	Handler::instance()->setCallback(&JumpListsManager::handlerCallback);
 }
 
 ActionInvoker JumpListsManager::actionInvoker() const
@@ -130,8 +139,48 @@ JumpListsManager::JumpListsManager() :
 	m_destList(0),
 	m_destListContent(0)
 {
+	const int buffsize = 4096;
+	wchar_t *buff = new wchar_t[buffsize];
+	const int pathLen = GetModuleFileNameW(0, buff, buffsize);
+	if (pathLen > 0) {
+		buff[pathLen] = 0;
+		m_wrapperPath = buff;
+#ifdef _DEBUG
+		m_wrapperPath.replace(m_wrapperPath.find_last_of(L"\\")+1, std::wstring::npos, L"wrapperd.dll");
+#else
+		m_wrapperPath.replace(m_wrapperPath.find_last_of(L"\\")+1, std::wstring::npos, L"wrapper.dll");
+#endif
+	}
+	delete[] buff;
 }
 
 JumpListsManager::~JumpListsManager()
 {
+}
+
+std::wstring JumpListsManager::makeArgs(ActionInfo *info)
+{
+	std::wstring args = m_wrapperPath;
+#ifdef _WIN64
+	args += L",_RundllCallback@28 "; // WARNING: TEST ME! // ptr×3 + int
+#else
+	args += L",_RundllCallback@16 ";
+#endif
+	wchar_t buffer[16] = {0};
+	const int res = swprintf(buffer, 15, L"%x", reinterpret_cast<uintptr_t>(info->data));
+	if (res) {
+		buffer[res] = 0;
+		args += buffer;
+	}
+	return args;
+}
+
+void JumpListsManager::handlerCallback(const char *b)
+{
+#pragma warning(push)
+#pragma warning(disable:4244)
+	uintptr_t ptr = _strtoui64(b, 0, 16);
+#pragma warning(pop)
+	if (JumpListsManager::instance()->actionInvoker())
+		JumpListsManager::instance()->actionInvoker()(reinterpret_cast<void*>(ptr));
 }

@@ -5,12 +5,14 @@
 #include <QApplication>
 #include <QPainter>
 #include <QStyle>
+#include <QDebug>
 #include "jumplistsmenuexporter.h"
 
 WindowsTaskBar::WindowsTaskBar(QObject *parent) :
 	QtDockProvider(parent),
 	m_menuExporter(new JumpListsMenuExporter(this))
 {
+	connect(qApp, SIGNAL(aboutToQuit()), SLOT(deleteJL()));
 }
 
 WindowsTaskBar::~WindowsTaskBar()
@@ -88,6 +90,11 @@ QSize WindowsTaskBar::overlayIconSize() const
 {
 	int size = qApp->style()->pixelMetric(QStyle::PM_ListViewIconSize);
 	return QSize(size, size);
+}
+
+void WindowsTaskBar::deleteJL()
+{
+	deleteJumpLists();
 }
 
 Q_EXPORT_PLUGIN2(WindowsTaskBar, WindowsTaskBar)
