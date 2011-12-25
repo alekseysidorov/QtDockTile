@@ -17,7 +17,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}
 )
 
 target_link_libraries(wrapper
-	"dwmapi.lib" "Shlwapi.lib"
+	"dwmapi" "Shlwapi" "ws2_32"
 )
 set_target_properties(windowstaskbar PROPERTIES COMPILE_FLAGS "/Zc:wchar_t-") # do not treat wchar_t as built-in type
 
