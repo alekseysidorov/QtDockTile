@@ -1,6 +1,7 @@
 #include "taskbar.h"
 #include <ShObjIdl.h>
 #include "jumplistsmanager.h"
+#include <iostream>
 
 static ITaskbarList3 *windowsTaskBar()
 {
@@ -17,11 +18,14 @@ void setActionInvoker(ActionInvoker pointer)
 
 void setJumpLists(ActionInfo *list, size_t size)
 {
+	jumpListsManager()->beginList();
 	for (size_t i = 0; i != size; i++) {
-		ActionInfo info = list[i];
-		ActionInvoker invoker = jumpListsManager()->actionInvoker();
-		invoker(info.data);
+		if (list[i].type == ActionTypeSeparator)
+			jumpListsManager()->addSeparator();
+		else
+			jumpListsManager()->addTask(&list[i]);
 	}
+	jumpListsManager()->commitList();
 }
 
 void setApplicationId(const wchar_t *appId)
@@ -72,7 +76,7 @@ void setProgressState(HWND winId, ProgressState state)
 	taskbar->HrInit();
 	switch (state)	{
 		default:
-		case ProgressStateNone			: flags = TBPF_NOPROGRESS;    break;
+		case ProgressStateNone          : flags = TBPF_NOPROGRESS;    break;
 		case ProgressStateNormal        : flags = TBPF_NORMAL;        break;
 		case ProgressStatePaused        : flags = TBPF_PAUSED;        break;
 		case ProgressStateError         : flags = TBPF_ERROR;         break;
