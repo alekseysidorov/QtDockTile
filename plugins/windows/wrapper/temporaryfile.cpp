@@ -21,28 +21,26 @@ static std::wstring getTempPath()
 	return std::wstring(tempPath.begin(), tempPath.begin() + static_cast<std::size_t>(result));
 }
 
-//#pragma comment(lib, "rpcrt4.lib")
+static std::wstring generateGuid()
+{
+	RPC_CSTR cstr = NULL;
+	GUID guid;
+	CoCreateGuid(&guid);
+	UuidToString(&guid, &cstr);
 
-//static std::wstring generateGuid()
-//{
-//	RPC_CSTR *cstr = NULL;
-//	GUID guid;
-//	CoCreateGuid(&guid);
-//	UuidToString(&guid, cstr);
-
-//	//black magic
-//	char *str = reinterpret_cast<char*>(cstr);
-//	int len = strlen(str);
-//	std::wstring guidString(len, 0);
-//	for (int i = 0; i < len; ++i)
-//		guidString[i] = static_cast<wchar_t>(str[i]);
-//	return guidString;
-//}
+	//black magic
+	char *str = reinterpret_cast<char*>(cstr);
+	int len = strlen(str);
+	std::wstring guidString(len, 0);
+	for (int i = 0; i < len; ++i)
+		guidString[i] = static_cast<wchar_t>(str[i]);
+	return guidString;
+}
 
 TemporaryFile::TemporaryFile(const std::wstring &extension)
 {
 	std::wstring tmpPath = getTempPath();
-	m_fileName = tmpPath;
+	m_fileName = tmpPath + generateGuid() + L"." + extension;
 }
 
 TemporaryFile::~TemporaryFile()
@@ -55,11 +53,23 @@ std::wstring TemporaryFile::fileName() const
 	return m_fileName;
 }
 
-void TemporaryFile::write(const char *data)
+void TemporaryFile::write(const char *data, size_t size)
 {
+	FILE *file = NULL;
+	errno_t status = _wfopen_s(&file, m_fileName.data(), L"w");
+	if (status)
+		return;
+	fwrite(data, sizeof(data), size, file);
+	fclose(file);
 }
 
 size_t TemporaryFile::read(char *data, size_t maxSize)
 {
-	return -1;
+	FILE *file = NULL;
+	errno_t status = _wfopen_s(&file, m_fileName.data(), L"w");
+	if (status)
+		return -1;
+	size_t size = fread(data, sizeof(data), maxSize, file);
+	fclose(file);
+	return size;
 }

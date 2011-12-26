@@ -5,26 +5,36 @@
 #include <QMenu>
 #include <QApplication>
 #include "wrapper/taskbar.h"
+#include "temporaryicon.h"
 #include <QDebug>
+#include <QUuid>
 
 struct Data;
-struct ActionInfoV2 : public ActionInfo
-{
-	~ActionInfoV2()
-	{
-		qDebug() << Q_FUNC_INFO;
-	}
-};
-
 typedef QVector<ActionInfo> ActionInfoList;
 typedef QVector<wchar_t> WCharArray;
 
+static WCharArray toWCharArray(const QString &str)
+{
+	WCharArray array(str.length() + 1);
+	str.toWCharArray(array.data());
+	return array;
+}
+
 struct Data
 {
+	Data(QAction *action) : action(action), icon(action->icon()),
+		id(toWCharArray(QUuid::createUuid().toString())),
+		name(toWCharArray(action->text())),
+		description(toWCharArray(action->toolTip())),
+		iconPath(toWCharArray(icon.filePath()))
+	{
+	}
 	QWeakPointer<QAction> action;
+	TemporaryIcon icon;
 	WCharArray id;
 	WCharArray name;
 	WCharArray description;
+	WCharArray iconPath;
 };
 
 void invokeQAction(void *pointer)
@@ -51,7 +61,6 @@ public:
 	}
 	ActionInfoList serialize(QMenu *menu);
 	ActionInfo serialize(QAction *action);
-	WCharArray toWCharArray(const QString &str);
 	QSize pixmapSize() const;
 	void setAppId(const QString &id);
 

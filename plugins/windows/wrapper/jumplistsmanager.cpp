@@ -52,6 +52,8 @@ void JumpListsManager::addTask(ActionInfo *info)
 	task->SetDescription(info->description);
 	task->SetPath(L"rundll32.exe");
 	task->SetArguments(makeArgs(info).c_str());
+	if (info->iconPath)
+		task->SetIconLocation(info->iconPath, 0);
 
 	IPropertyStore *title;
 	PROPVARIANT titlepv;

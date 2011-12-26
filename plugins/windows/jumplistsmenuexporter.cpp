@@ -1,5 +1,4 @@
 #include "jumplistsmenuexporter_p.h"
-#include <QUuid>
 #include <QStyle>
 
 JumpListsMenuExporter::JumpListsMenuExporter(QObject *parent) :
@@ -64,32 +63,18 @@ ActionInfoList JumpListsMenuExporterPrivate::serialize(QMenu *menu)
 
 ActionInfo JumpListsMenuExporterPrivate::serialize(QAction *action)
 {
-	QString id = QUuid::createUuid().toString();
-
-	Data *data = new Data;
-
-	data->action = action;
-	data->id = toWCharArray(id);
-	data->name = toWCharArray(action->text());
-	data->description = toWCharArray(action->toolTip());
-
+	Data *data = new Data(action);
 	ActionType type = action->isSeparator() ? ActionTypeSeparator
 														 : ActionTypeNormal;
-	ActionInfoV2 info;
+	ActionInfo info;
 	info.id = data->id.data();
 	info.name = data->name.data();
 	info.description = data->description.data();
+	info.iconPath = data->iconPath.data();
 	info.icon = action->icon().pixmap(pixmapSize()).toWinHICON();
 	info.type = type;
 	info.data = data;
 	return info;
-}
-
-WCharArray JumpListsMenuExporterPrivate::toWCharArray(const QString &str)
-{
-	WCharArray array(str.length() + 1);
-	str.toWCharArray(array.data());
-	return array;
 }
 
 QSize JumpListsMenuExporterPrivate::pixmapSize() const

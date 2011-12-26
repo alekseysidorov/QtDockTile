@@ -88,6 +88,10 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="element">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/im-status-message-edit.svgz</normaloff>:/im-status-message-edit.svgz</iconset>
+   </property>
    <property name="text">
     <string>Element</string>
    </property>
@@ -112,10 +116,6 @@
    </property>
   </action>
   <action name="actionElementWithIcon">
-   <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/im-status-message-edit.svgz</normaloff>:/im-status-message-edit.svgz</iconset>
-   </property>
    <property name="text">
     <string>Element with icon</string>
    </property>
