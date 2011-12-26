@@ -21,6 +21,7 @@ set(CMAKE_QTDOCKTILE_VERSION_PATCH 0 CACHE INT "Release QtDockTile version numbe
 set(CMAKE_QTDOCKTILE_VERSION_STRING "${CMAKE_QTDOCKTILE_VERSION_MAJOR}.${CMAKE_QTDOCKTILE_VERSION_MINOR}.${CMAKE_QTDOCKTILE_VERSION_PATCH}" CACHE STRING "QtDockTile version string" FORCE)
 
 add_subdirectory(lib)
+add_subdirectory(quick)
 add_subdirectory(plugins)
 add_subdirectory(example)
 
