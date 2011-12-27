@@ -66,14 +66,14 @@ ActionInfo JumpListsMenuExporterPrivate::serialize(QAction *action)
 	Data *data = new Data(action);
 	ActionType type = action->isSeparator() ? ActionTypeSeparator
 														 : ActionTypeNormal;
-	ActionInfo info;
-	info.id = data->id.constData();
-	info.name = data->name.data();
-	info.description = data->description.data();
-	info.iconPath = data->iconPath.data();
-	info.icon = action->icon().pixmap(pixmapSize()).toWinHICON();
-	info.type = type;
-	info.data = data;
+	ActionInfo info = {
+		data->id.constData(),
+		data->name.data(),
+		data->description.data(),
+		data->iconPath.data(),
+		type,
+		data
+	};
 	return info;
 }
 
