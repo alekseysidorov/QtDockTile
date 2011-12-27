@@ -5,6 +5,7 @@
 #include <Propvarutil.h>
 #include <Propkey.h>
 #include <string>
+#include <iostream>
 
 JumpListsManager *JumpListsManager::instance()
 {
@@ -70,6 +71,8 @@ void JumpListsManager::addTask(ActionInfo *info)
 	res = m_destListContent->AddObject(task);
 	title->Release();
 	task->Release();
+
+	m_actionInfoMap.insert(std::make_pair(info->id, info));
 }
 
 void JumpListsManager::deleteList(const wchar_t *appId)
@@ -83,6 +86,7 @@ void JumpListsManager::deleteList(const wchar_t *appId)
 		return;
 	res = list->DeleteList(appId);
 	list->Release();
+	m_actionInfoMap.clear();
 }
 
 void JumpListsManager::addSeparator()
@@ -168,21 +172,38 @@ std::wstring JumpListsManager::makeArgs(ActionInfo *info)
 #else
 	args += L",_RundllCallback@16 ";
 #endif
-	wchar_t buffer[16] = {0};
-	const int res = swprintf(buffer, 15, L"%x", reinterpret_cast<uintptr_t>(info->data));
-	if (res) {
-		buffer[res] = 0;
-		args += buffer;
-	}
+
+	// Convert to a wchar_t*
+	size_t origsize = strlen(info->id) + 1;
+	const size_t newsize = 64;
+	size_t convertedChars = 0;
+	wchar_t buffer[newsize];
+	mbstowcs_s(&convertedChars, buffer, origsize, info->id, _TRUNCATE);
+	args += buffer;
 	return args;
 }
 
-void JumpListsManager::handlerCallback(const char *b)
+void JumpListsManager::handlerCallback(const char *id)
 {
-#pragma warning(push)
-#pragma warning(disable:4244)
-	uintptr_t ptr = _strtoui64(b, 0, 16);
-#pragma warning(pop)
-	if (JumpListsManager::instance()->actionInvoker())
-		JumpListsManager::instance()->actionInvoker()(reinterpret_cast<void*>(ptr));
+	std::cout << id;
+	ActionInfo *info = actionInfo(id);
+	if (info)
+		if (jumpListsManager()->actionInvoker())
+			jumpListsManager()->actionInvoker()(info->data);
+
+//#pragma warning(push)
+//#pragma warning(disable:4244)
+//	uintptr_t ptr = _strtoui64(b, 0, 16);
+//#pragma warning(pop)
+//	if (JumpListsManager::instance()->actionInvoker())
+	//		JumpListsManager::instance()->actionInvoker()(reinterpret_cast<void*>(ptr));
+}
+
+ActionInfo *JumpListsManager::actionInfo(const char *id)
+{
+	ActionInfoMap map = jumpListsManager()->m_actionInfoMap;
+	ActionInfoMap::const_iterator it = map.find(id);
+	if (it != map.cend())
+		return it->second;
+	return 0;
 }

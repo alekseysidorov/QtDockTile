@@ -2,6 +2,7 @@
 #define JUMPLISTSMANAGER_H
 #include "windows.h"
 #include <string>
+#include <map>
 
 typedef void (*ActionInvoker)(void *data);
 struct ActionInfo;
@@ -32,8 +33,12 @@ private:
 	IObjectCollection *m_destListContent;
 	std::wstring m_wrapperPath;
 
+	typedef std::map<std::string, ActionInfo*> ActionInfoMap;
+	ActionInfoMap m_actionInfoMap;
+
 	std::wstring makeArgs(ActionInfo *info);
 	static void handlerCallback(const char *);
+	static ActionInfo *actionInfo(const char *id);
 };
 
 inline JumpListsManager *jumpListsManager()

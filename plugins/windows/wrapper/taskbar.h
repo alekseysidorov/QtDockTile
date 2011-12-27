@@ -25,7 +25,7 @@ enum ActionType
 
 struct ActionInfo
 {
-	wchar_t *id;
+	const char *id;
 	wchar_t *name;
 	wchar_t *description;
 	wchar_t *iconPath;

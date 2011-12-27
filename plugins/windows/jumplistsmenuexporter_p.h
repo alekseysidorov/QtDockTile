@@ -23,7 +23,7 @@ static WCharArray toWCharArray(const QString &str)
 struct Data
 {
 	Data(QAction *action) : action(action), icon(action->icon()),
-		id(toWCharArray(QUuid::createUuid().toString())),
+		id(QUuid::createUuid().toByteArray()),
 		name(toWCharArray(action->text())),
 		description(toWCharArray(action->toolTip())),
 		iconPath(toWCharArray(icon.filePath()))
@@ -31,7 +31,7 @@ struct Data
 	}
 	QWeakPointer<QAction> action;
 	TemporaryIcon icon;
-	WCharArray id;
+	QByteArray id;
 	WCharArray name;
 	WCharArray description;
 	WCharArray iconPath;
