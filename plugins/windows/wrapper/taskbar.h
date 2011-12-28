@@ -54,7 +54,6 @@ struct ActionInfo
 	wchar_t *name;
 	wchar_t *description;
 	wchar_t *iconPath;
-	HICON icon;
 	ActionType type;
 	void *data;
 };
