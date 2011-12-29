@@ -35,13 +35,13 @@ class QMenu;
 class QTDOCKTILE_EXPORT QtDockProviderInterface
 {
 public:
-	virtual ~QtDockProviderInterface() {}
+    virtual ~QtDockProviderInterface() {}
 	virtual bool isUsable() const = 0;
 	virtual void setMenu(QMenu *menu) = 0;
 	virtual void setBadge(const QString &badge) = 0;
 	virtual void setProgress(int percents) = 0;
 	virtual void alert(bool on) = 0;
-	virtual QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);
+    virtual QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);
 };
 Q_DECLARE_INTERFACE(QtDockProviderInterface, "org.DockProvider")
 
