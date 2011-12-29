@@ -91,16 +91,11 @@ QPixmap WindowsTaskBar::createBadge(const QString &badge) const
 	QPainter painter(&pixmap);
 	painter.setRenderHint(QPainter::Antialiasing);
 	QPalette palette = window()->palette();
-
 	painter.setBrush(palette.toolTipBase());
 
 	QPen pen = painter.pen();
 	pen.setColor(palette.color(QPalette::ToolTipText));
 	painter.setPen(pen);
-
-	//QFont font = painter.font();
-	//font.setPointSizeF(font.pointSizeF() * 0.8);
-	//painter.setFont(font);
 
 	QString label = QFontMetrics(painter.font()).elidedText(badge, Qt::ElideMiddle, rect.width());
 	painter.drawRoundedRect(rect, 5, 5);

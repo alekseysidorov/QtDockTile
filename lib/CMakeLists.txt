@@ -23,8 +23,18 @@ target_link_libraries(qtdocktile
         ${QT_LIBRARIES}
 )
 
+set(HEADERS
+	qtdocktile.h
+	qtdocktile_global.h
+	qtdockprovider.h
+)
+
 install(TARGETS qtdocktile
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
+)
+
+install(FILES ${HEADERS}
+	DESTINATION include/qtdocktile
 )
