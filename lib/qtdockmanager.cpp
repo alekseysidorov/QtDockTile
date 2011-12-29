@@ -42,6 +42,11 @@ QtDockManager *QtDockManager::instance()
 	return &pointer;
 }
 
+QtDockProvider *QtDockManager::currentProvider() const
+{
+	return usableProviders().first();
+}
+
 QtDockProviderList QtDockManager::usableProviders() const
 {
 	//TODO remove foreach
@@ -92,6 +97,15 @@ int QtDockManager::progress() const
 void QtDockManager::alert(bool on)
 {
 	_providers->alert(on);
+}
+
+QVariant QtDockManager::platformInvoke(const QByteArray &method, const QVariant &arguments)
+{
+	QVariant result(QVariant::Invalid);
+	QtDockProvider *provider = currentProvider();
+	if (provider)
+		result = provider->platformInvoke(method, arguments);
+	return result;
 }
 
 QtDockManager::QtDockManager()

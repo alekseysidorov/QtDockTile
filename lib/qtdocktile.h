@@ -46,6 +46,7 @@ public:
     QMenu *menu() const;
     QString badge() const;	
     int progress() const;
+	Q_INVOKABLE QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);
 signals:
     void menuChanged(QMenu *menu);
     void badgeChanged(const QString &badje);

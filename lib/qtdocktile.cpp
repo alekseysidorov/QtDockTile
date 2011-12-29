@@ -71,7 +71,12 @@ void QtDockTile::setProgress(int percent)
 
 int QtDockTile::progress() const
 {
-    return manager()->progress();
+	return manager()->progress();
+}
+
+QVariant QtDockTile::platformInvoke(const QByteArray &method, const QVariant &arguments)
+{
+	return manager()->platformInvoke(method, arguments);
 }
 
 void QtDockTile::alert(bool on)

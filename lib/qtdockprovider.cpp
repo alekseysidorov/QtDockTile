@@ -50,3 +50,8 @@ QWidget *QtDockProvider::window() const
 {
 	return qApp->activeWindow();
 }
+
+QVariant QtDockProviderInterface::platformInvoke(const QByteArray &, const QVariant &)
+{
+	return QVariant::Invalid;
+}

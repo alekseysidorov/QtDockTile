@@ -38,6 +38,7 @@ class QtDockManager : public QObject
 	Q_OBJECT
 public:
 	static QtDockManager *instance();
+	QtDockProvider* currentProvider() const;
 	QtDockProviderList usableProviders() const;
 
 	void setMenu(QMenu *menu);
@@ -48,6 +49,7 @@ public:
 	void setProgress(int percent);
 	int progress() const;
 	void alert(bool on = true);
+	QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);
 signals:
 	void iconChanged(const QIcon &icon);
 	void menuChanged(QMenu *menu);

@@ -27,6 +27,7 @@
 
 #include <QObject>
 #include "qtdocktile_global.h"
+#include <QVariant>
 
 class QIcon;
 class QMenu;
@@ -40,7 +41,7 @@ public:
 	virtual void setBadge(const QString &badge) = 0;
 	virtual void setProgress(int percents) = 0;
 	virtual void alert(bool on) = 0;
-
+	virtual QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);
 };
 Q_DECLARE_INTERFACE(QtDockProviderInterface, "org.DockProvider")
 
