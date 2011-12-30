@@ -27,6 +27,7 @@
 
 #include "qtdocktile_global.h"
 #include <QObject>
+#include <QVariant>
 #include <QIcon>
 
 class QMenu;
