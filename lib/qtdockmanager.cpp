@@ -32,9 +32,13 @@
 #include <QDebug>
 
 //some sugar
+//#define _providers \
+//	foreach (QtDockProvider *provider, usableProviders()) \
+//	provider \
+
 #define _providers \
-	foreach (QtDockProvider *provider, usableProviders()) \
-	provider \
+	currentProvider() \
+
 
 QtDockManager *QtDockManager::instance()
 {
