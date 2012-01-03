@@ -36,6 +36,7 @@ WindowsTaskBar::WindowsTaskBar(QObject *parent) :
 	QtDockProvider(parent),
 	m_menuExporter(new JumpListsMenuExporter(this))
 {
+	qDebug() << Q_FUNC_INFO;
 	connect(qApp, SIGNAL(aboutToQuit()), SLOT(deleteJL()));
 }
 
