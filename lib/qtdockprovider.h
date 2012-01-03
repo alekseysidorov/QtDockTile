@@ -43,7 +43,11 @@ public:
 	virtual void alert(bool on) = 0;
     virtual QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);
 };
-Q_DECLARE_INTERFACE(QtDockProviderInterface, "org.DockProvider")
+
+#define docktileProvider_iid \
+	"org.DockTile.Provider"
+
+Q_DECLARE_INTERFACE(QtDockProviderInterface, docktileProvider_iid)
 
 class QTDOCKTILE_EXPORT QtDockProvider : public QObject, public QtDockProviderInterface
 {

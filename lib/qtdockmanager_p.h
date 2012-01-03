@@ -30,6 +30,7 @@
 #define QTDOCKMANAGER_P_H
 #include <QObject>
 #include <QMenu>
+#include <pluginloader.h>
 
 class QtDockProvider;
 typedef QList<QtDockProvider*> QtDockProviderList;
@@ -61,6 +62,7 @@ protected:
 	void addProvider(QtDockProvider *provider);
 	void removeProvider(QtDockProvider *provider);
 private:
+	QScopedPointer<PluginLoader> m_pluginLoader;
 	QtDockProviderList m_providers;
 	QIcon m_dockIcon;
 	QIcon m_overlayIcon;

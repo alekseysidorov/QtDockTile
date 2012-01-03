@@ -108,36 +108,14 @@ QVariant QtDockManager::platformInvoke(const QByteArray &method, const QVariant 
 	return result;
 }
 
-QtDockManager::QtDockManager()
+QtDockManager::QtDockManager() : m_pluginLoader(new PluginLoader(QLatin1String("docktile"),
+																 docktileProvider_iid))
 {
-	//resolve plugins
-	QStringList plugins;
-	QDir dir = QLibraryInfo::location(QLibraryInfo::PluginsPath) + QLatin1String("/docktile");
-	foreach (QString filename, dir.entryList(QDir::Files))
-		if (QLibrary::isLibrary(filename))
-			plugins.append(dir.absolutePath() + '/' + filename);
-	dir = qApp->applicationDirPath() + QLatin1String("/plugins/docktile");
-	foreach (QString filename, dir.entryList(QDir::Files))
-		if (QLibrary::isLibrary(filename))
-			plugins.append(dir.absolutePath() + '/' + filename);
-
-	QPluginLoader loader;
-	foreach (QString plugin, plugins) {
-		loader.setFileName(plugin);
-		if (loader.load()) {
-			QtDockProvider *provider = qobject_cast<QtDockProvider*>(loader.instance());
-			if (provider)
-				addProvider(provider);
-			else
-				qWarning("Unknown interface in plugin %s", qPrintable(plugin));
-		} else
-			qWarning("Unable to load plugin %s : %s", qPrintable(plugin), qPrintable(loader.errorString()));
-	}
+	m_providers = m_pluginLoader->instances<QtDockProvider>();
 }
 
 QtDockManager::~QtDockManager()
 {
-	qDeleteAll(m_providers);
 }
 
 void QtDockManager::addProvider(QtDockProvider *provider)
