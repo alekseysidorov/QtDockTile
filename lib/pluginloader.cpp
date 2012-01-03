@@ -13,8 +13,10 @@ PluginLoader::PluginLoader(const QString &category, const char *interfaceId) :
 
 PluginLoader::~PluginLoader()
 {
-	for (int i = 0; i < m_plugins.count(); i++)
+	for (int i = 0; i < m_plugins.count(); i++) {
+		m_plugins.at(i)->unload();
 		delete m_plugins.at(i);
+	}
 }
 
 QObjectList PluginLoader::instances()
@@ -32,6 +34,10 @@ QObjectList PluginLoader::instances()
 
 void PluginLoader::load()
 {
+#if !defined QT_NO_DEBUG
+	const bool showDebug = qgetenv("QT_DEBUG_PLUGINS").toInt() > 0;
+#endif
+
 	if (!m_plugins.isEmpty())
 		return;
 
@@ -43,6 +49,11 @@ void PluginLoader::load()
 		if (o && (m_interfaceId.isEmpty() || o->qt_metacast(m_interfaceId))) {
 			m_plugins.append(loader);
 		} else {
+#if !defined QT_NO_DEBUG
+			if (showDebug)
+				qWarning() << "QAudioPluginLoader: Failed to load plugin: "
+						   << plugins.at(i) << loader->errorString();
+#endif
 			delete o;
 			delete loader;
 		}
@@ -51,7 +62,18 @@ void PluginLoader::load()
 
 QStringList PluginLoader::pluginList() const
 {
+#if !defined QT_NO_DEBUG
+	const bool showDebug = qgetenv("QT_DEBUG_PLUGINS").toInt() > 0;
+#endif
+
 	QStringList paths = QCoreApplication::libraryPaths();
+#ifdef QTM_PLUGIN_PATH
+	paths << QLatin1String(QTM_PLUGIN_PATH);
+#endif
+#if !defined QT_NO_DEBUG
+	if (showDebug)
+		qDebug() << "Plugin paths:" << paths;
+#endif
 
 	//temp variable to avoid multiple identic path
 	QSet<QString> processed;
@@ -70,6 +92,10 @@ QStringList PluginLoader::pluginList() const
 			continue;
 
 		QStringList files = pluginsDir.entryList(QDir::Files);
+#if !defined QT_NO_DEBUG
+		if (showDebug)
+			qDebug() << "Looking for plugins in " << pluginsDir.path() << files;
+#endif
 		for (int j=0; j < files.count(); j++) {
 			const QString &file = files.at(j);
 			pluginList <<  pluginsDir.absoluteFilePath(file);

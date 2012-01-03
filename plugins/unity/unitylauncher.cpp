@@ -59,6 +59,7 @@ UnityLauncher::UnityLauncher(QObject *parent) :
 
 UnityLauncher::~UnityLauncher()
 {
+	qDebug() << Q_FUNC_INFO;
 }
 
 bool UnityLauncher::isUsable() const
@@ -68,9 +69,12 @@ bool UnityLauncher::isUsable() const
 
 void UnityLauncher::setMenu(QMenu *menu)
 {
+	if (m_menuExporter)
+		m_menuExporter.data()->deleteLater();
+
 	if (menu) {
 		QString uri = appUri();
-		m_menuExporter.reset(new DBusMenuExporter(uri, menu));
+		m_menuExporter = new DBusMenuExporter(uri, menu);
 		sendMessage("quicklist", uri);
 	} else
 		sendMessage("quicklist", QString());

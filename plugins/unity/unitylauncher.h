@@ -48,7 +48,7 @@ private:
 	template <typename T>
 	void sendMessage(const char *method, const T &value);
 	void sendMessage(const QVariantMap &properties);
-	QScopedPointer<DBusMenuExporter> m_menuExporter;
+	QWeakPointer<DBusMenuExporter> m_menuExporter;
 };
 
 #endif // UNITYLAUNCHER_H
