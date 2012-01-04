@@ -51,7 +51,7 @@ public:
 signals:
     void menuChanged(QMenu *menu);
     void badgeChanged(const QString &badje);
-    void progressChanged(const int percent);
+	void progressChanged(int percent);
 public slots:
     void alert(bool on = true);
 	void setBadge(int count);

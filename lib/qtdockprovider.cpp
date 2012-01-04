@@ -26,6 +26,12 @@
 #include "qtdockmanager_p.h"
 #include <QApplication>
 
+/*!
+	\class QtDockProvider
+	\brief TODO
+
+*/
+
 QtDockProvider::QtDockProvider(QObject *parent) :
 	QObject(parent)
 {
