@@ -56,10 +56,6 @@ QtDockTile::QtDockTile(QObject *parent) :
     connect(manager(), SIGNAL(progressChanged(int)), SIGNAL(progressChanged(int)));
 }
 
-/*!
-	\internal
-*/
-
 QtDockTile::~QtDockTile()
 {
 }
@@ -83,7 +79,8 @@ void QtDockTile::setMenu(QMenu *menu)
 
 /*!
 	\property QtDockTile::menu
-	\brief the dock tile menu
+	\brief The dock tile menu
+	\return Current menu pointer
 */
 
 QMenu *QtDockTile::menu() const
@@ -91,9 +88,24 @@ QMenu *QtDockTile::menu() const
     return manager()->menu();
 }
 
+/*!
+	TODO
+	\param text
+ */
+
 void QtDockTile::setBadge(const QString &text)
 {
     manager()->setBadge(text);
+}
+
+/*!
+	\overload
+	\param count - TODO
+ */
+
+void QtDockTile::setBadge(int count)
+{
+	manager()->setBadge(QString::number(count));
 }
 
 /*!
@@ -106,7 +118,8 @@ void QtDockTile::setBadge(const QString &text)
 
 /*!
 	\property QtDockTile::badge
-	\brief the dock tile badge string
+	\brief The dock tile badge string
+	\return Current badge string
 */
 
 QString QtDockTile::badge() const
@@ -116,6 +129,7 @@ QString QtDockTile::badge() const
 
 /*!
 	TODO
+	\param percent - TODO
 */
 
 void QtDockTile::setProgress(int percent)
@@ -133,7 +147,8 @@ void QtDockTile::setProgress(int percent)
 
 /*!
 	\property QtDockTile::progress
-	\brief the dock tile progress state
+	\brief The dock tile progress state.
+	\return Current progress state in percents
 */
 
 int QtDockTile::progress() const
@@ -142,7 +157,8 @@ int QtDockTile::progress() const
 }
 
 /*!
-	Invoke platform depended methods in docktile provider
+	\fn QtDockTile::platformInvoke
+	\brief Invoke platform depended methods in docktile provider
 */
 
 QVariant QtDockTile::platformInvoke(const QByteArray &method, const QVariant &arguments)
@@ -151,19 +167,10 @@ QVariant QtDockTile::platformInvoke(const QByteArray &method, const QVariant &ar
 }
 
 /*!
-	TODO
-*/
+	\brief TODO
+ */
 
 void QtDockTile::alert(bool on)
 {
 	manager()->alert(on);
-}
-
-/*!
-	TODO
-*/
-
-void QtDockTile::setBadge(int count)
-{
-	manager()->setBadge(QString::number(count));
 }

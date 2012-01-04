@@ -27,10 +27,16 @@
 #include <QApplication>
 
 /*!
-	\class QtDockProvider
+	\class QtDockProviderInterface
 	\brief TODO
 
 */
+
+/*!
+	\fn QtDockProviderInterface::isUsable
+	TODO
+	\return
+ */
 
 QtDockProvider::QtDockProvider(QObject *parent) :
 	QObject(parent)

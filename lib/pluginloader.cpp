@@ -4,6 +4,13 @@
 #include <QSet>
 #include <QDebug>
 
+/*!
+	\class PluginLoader
+	\internal
+ */
+
+
+
 PluginLoader::PluginLoader(const QString &category, const char *interfaceId) :
 	m_interfaceId(interfaceId),
 	m_location(QLatin1Char('/') + category + QLatin1Char('/'))

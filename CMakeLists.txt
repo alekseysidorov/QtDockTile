@@ -24,6 +24,7 @@ add_subdirectory(lib)
 add_subdirectory(quick)
 add_subdirectory(plugins)
 add_subdirectory(example)
+add_subdirectory(doc)
 
 # uninstall target
 configure_file(
