@@ -48,6 +48,10 @@ static QtDockManager *manager()
 	\sa QtDockProvider
 */
 
+/*!
+	\reimp
+ */
+
 QtDockTile::QtDockTile(QObject *parent) :
     QObject(parent)
 {
@@ -55,6 +59,10 @@ QtDockTile::QtDockTile(QObject *parent) :
     connect(manager(), SIGNAL(menuChanged(QMenu*)), SIGNAL(menuChanged(QMenu*)));
     connect(manager(), SIGNAL(progressChanged(int)), SIGNAL(progressChanged(int)));
 }
+
+/*!
+	\reimp
+ */
 
 QtDockTile::~QtDockTile()
 {
@@ -90,7 +98,7 @@ QMenu *QtDockTile::menu() const
 
 /*!
 	TODO
-	\param text
+	\a text
  */
 
 void QtDockTile::setBadge(const QString &text)
@@ -100,7 +108,7 @@ void QtDockTile::setBadge(const QString &text)
 
 /*!
 	\overload
-	\param count - TODO
+	\a count - TODO
  */
 
 void QtDockTile::setBadge(int count)
@@ -128,8 +136,7 @@ QString QtDockTile::badge() const
 }
 
 /*!
-	TODO
-	\param percent - TODO
+	TODO \a percent
 */
 
 void QtDockTile::setProgress(int percent)
@@ -157,7 +164,6 @@ int QtDockTile::progress() const
 }
 
 /*!
-	\fn QtDockTile::platformInvoke
 	\brief Invoke platform depended methods in docktile provider
 */
 
@@ -167,7 +173,7 @@ QVariant QtDockTile::platformInvoke(const QByteArray &method, const QVariant &ar
 }
 
 /*!
-	\brief TODO
+	\brief TODO \a on
  */
 
 void QtDockTile::alert(bool on)
