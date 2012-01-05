@@ -70,3 +70,16 @@ if(DOXYGEN_FOUND)
 
 	add_dependencies(qtdocktile doc)
 endif(DOXYGEN_FOUND)
+
+get_filename_component(_dir ${QT_QMAKE_EXECUTABLE} PATH)
+
+find_program(QT_QDOC3_EXECUTABLE
+	NAMES qdoc3
+	PATHS
+		${_dir}
+)
+
+find_package(QDoc3)
+if(QT_QDOC3_EXECUTABLE)
+
+endif()
