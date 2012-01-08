@@ -31,13 +31,12 @@
 #include <QApplication>
 #include <QDebug>
 
-//some sugar
-//#define _providers \
-//	foreach (QtDockProvider *provider, usableProviders()) \
-//	provider \
+#define _provider \
+	if (!currentProvider()) \
+		qWarning("Warning: cannot found usable dock provider. May be you forget make install command?"); \
+	else \
+		currentProvider()
 
-#define _providers \
-	currentProvider() \
 
 
 QtDockManager *QtDockManager::instance()
@@ -48,7 +47,9 @@ QtDockManager *QtDockManager::instance()
 
 QtDockProvider *QtDockManager::currentProvider() const
 {
-	return usableProviders().first();
+	if (usableProviders().count())
+		return usableProviders().first();
+	return 0;
 }
 
 QtDockProviderList QtDockManager::usableProviders() const
@@ -65,7 +66,7 @@ QtDockProviderList QtDockManager::usableProviders() const
 void QtDockManager::setMenu(QMenu *menu)
 {
 	m_menu = menu;
-	_providers->setMenu(menu);
+	_provider->setMenu(menu);
 	emit menuChanged(menu);
 }
 
@@ -77,7 +78,7 @@ QMenu *QtDockManager::menu() const
 void QtDockManager::setBadge(const QString &text)
 {
 	m_badge = text;
-	_providers->setBadge(text);
+	_provider->setBadge(text);
 	emit badgeChanged(text);
 }
 
@@ -89,7 +90,7 @@ QString QtDockManager::badge() const
 void QtDockManager::setProgress(int percent)
 {
 	m_percent = percent;
-	_providers->setProgress(percent);
+	_provider->setProgress(percent);
 	emit progressChanged(percent);
 }
 
@@ -100,7 +101,7 @@ int QtDockManager::progress() const
 
 void QtDockManager::alert(bool on)
 {
-	_providers->alert(on);
+	_provider->alert(on);
 }
 
 QVariant QtDockManager::platformInvoke(const QByteArray &method, const QVariant &arguments)

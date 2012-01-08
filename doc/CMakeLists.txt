@@ -61,7 +61,7 @@ if(DOXYGEN_FOUND)
 		COMMENT "Building documentation"
 		SOURCE Doxyfile.in DoxygenLayout.xml)
 
-	install( DIRECTORY
+	install(DIRECTORY
 		${CMAKE_CURRENT_BINARY_DIR}/doc/html
 		${CMAKE_CURRENT_BINARY_DIR}/doc/qch
 		DESTINATION share/qutim/doc
@@ -71,15 +71,15 @@ if(DOXYGEN_FOUND)
 	add_dependencies(qtdocktile doc)
 endif(DOXYGEN_FOUND)
 
-get_filename_component(_dir ${QT_QMAKE_EXECUTABLE} PATH)
+#get_filename_component(_dir ${QT_QMAKE_EXECUTABLE} PATH)
 
-find_program(QT_QDOC3_EXECUTABLE
-	NAMES qdoc3
-	PATHS
-		${_dir}
-)
+#find_program(QT_QDOC3_EXECUTABLE
+#	NAMES qdoc3
+#	PATHS
+#		${_dir}
+#)
 
-find_package(QDoc3)
-if(QT_QDOC3_EXECUTABLE)
+#find_package(QDoc3)
+#if(QT_QDOC3_EXECUTABLE)
 
-endif()
+#endif()
