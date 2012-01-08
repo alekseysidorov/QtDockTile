@@ -27,6 +27,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}
 target_link_libraries(quickdocktile
     qtdocktile
     ${QT_LIBRARIES}
+    ${QT_QTDECLARATIVE_LIBRARY}
     )
 
 set(IMPORTSDIR ${QT_IMPORTS_DIR})
