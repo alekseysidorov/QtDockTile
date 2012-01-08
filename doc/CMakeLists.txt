@@ -64,7 +64,7 @@ if(DOXYGEN_FOUND)
 	install(DIRECTORY
 		${CMAKE_CURRENT_BINARY_DIR}/doc/html
 		${CMAKE_CURRENT_BINARY_DIR}/doc/qch
-		DESTINATION share/qutim/doc
+		DESTINATION share/QtDockTile/doc
 		COMPONENT CoreDevel
 	)
 
