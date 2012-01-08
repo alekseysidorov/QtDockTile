@@ -1,3 +1,27 @@
+/****************************************************************************
+ *  jumplistsmenuexporter.cpp
+ *
+ *  Copyright (c) 2011 by Sidorov Aleksey <gorthauer87@ya.ru>
+ *
+ ***************************************************************************
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+*****************************************************************************/
+
 #include "jumplistsmenuexporter_p.h"
 #include <QStyle>
 
@@ -66,14 +90,14 @@ ActionInfo JumpListsMenuExporterPrivate::serialize(QAction *action)
 	Data *data = new Data(action);
 	ActionType type = action->isSeparator() ? ActionTypeSeparator
 														 : ActionTypeNormal;
-	ActionInfo info;
-	info.id = data->id.constData();
-	info.name = data->name.data();
-	info.description = data->description.data();
-	info.iconPath = data->iconPath.data();
-	info.icon = action->icon().pixmap(pixmapSize()).toWinHICON();
-	info.type = type;
-	info.data = data;
+	ActionInfo info = {
+		data->id.constData(),
+		data->name.data(),
+		data->description.data(),
+		data->iconPath.data(),
+		type,
+		data
+	};
 	return info;
 }
 

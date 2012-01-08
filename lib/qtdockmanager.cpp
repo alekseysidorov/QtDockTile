@@ -1,3 +1,27 @@
+/****************************************************************************
+ *  qtdockmanager.cpp
+ *
+ *  Copyright (c) 2011 by Sidorov Aleksey <gorthauer87@ya.ru>
+ *
+ ***************************************************************************
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+*****************************************************************************/
+
 #include "qtdockmanager_p.h"
 #include "qtdockprovider.h"
 #include <QPluginLoader>
@@ -7,15 +31,25 @@
 #include <QApplication>
 #include <QDebug>
 
-//some sugar
-#define _providers \
-	foreach (QtDockProvider *provider, usableProviders()) \
-	provider \
+#define _provider \
+	if (!currentProvider()) \
+		qWarning("Warning: cannot found usable dock provider. May be you forget make install command?"); \
+	else \
+		currentProvider()
+
+
 
 QtDockManager *QtDockManager::instance()
 {
 	static QtDockManager pointer;
 	return &pointer;
+}
+
+QtDockProvider *QtDockManager::currentProvider() const
+{
+	if (usableProviders().count())
+		return usableProviders().first();
+	return 0;
 }
 
 QtDockProviderList QtDockManager::usableProviders() const
@@ -32,7 +66,7 @@ QtDockProviderList QtDockManager::usableProviders() const
 void QtDockManager::setMenu(QMenu *menu)
 {
 	m_menu = menu;
-	_providers->setMenu(menu);
+	_provider->setMenu(menu);
 	emit menuChanged(menu);
 }
 
@@ -44,7 +78,7 @@ QMenu *QtDockManager::menu() const
 void QtDockManager::setBadge(const QString &text)
 {
 	m_badge = text;
-	_providers->setBadge(text);
+	_provider->setBadge(text);
 	emit badgeChanged(text);
 }
 
@@ -56,7 +90,7 @@ QString QtDockManager::badge() const
 void QtDockManager::setProgress(int percent)
 {
 	m_percent = percent;
-	_providers->setProgress(percent);
+	_provider->setProgress(percent);
 	emit progressChanged(percent);
 }
 
@@ -67,39 +101,26 @@ int QtDockManager::progress() const
 
 void QtDockManager::alert(bool on)
 {
-	_providers->alert(on);
+	_provider->alert(on);
 }
 
-QtDockManager::QtDockManager()
+QVariant QtDockManager::platformInvoke(const QByteArray &method, const QVariant &arguments)
 {
-	//resolve plugins
-	QStringList plugins;
-	QDir dir = QLibraryInfo::location(QLibraryInfo::PluginsPath) + QLatin1String("/docktile");
-	foreach (QString filename, dir.entryList(QDir::Files))
-		if (QLibrary::isLibrary(filename))
-			plugins.append(dir.absolutePath() + '/' + filename);
-	dir = qApp->applicationDirPath() + QLatin1String("/plugins/docktile");
-	foreach (QString filename, dir.entryList(QDir::Files))
-		if (QLibrary::isLibrary(filename))
-			plugins.append(dir.absolutePath() + '/' + filename);
+	QVariant result(QVariant::Invalid);
+	QtDockProvider *provider = currentProvider();
+	if (provider)
+		result = provider->platformInvoke(method, arguments);
+	return result;
+}
 
-	QPluginLoader loader;
-	foreach (QString plugin, plugins) {
-		loader.setFileName(plugin);
-		if (loader.load()) {
-			QtDockProvider *provider = qobject_cast<QtDockProvider*>(loader.instance());
-			if (provider)
-				addProvider(provider);
-			else
-				qWarning("Unknown interface in plugin %s", qPrintable(plugin));
-		} else
-			qWarning("Unable to load plugin %s : %s", qPrintable(plugin), qPrintable(loader.errorString()));
-	}
+QtDockManager::QtDockManager() : m_pluginLoader(new PluginLoader(QLatin1String("docktile"),
+																 docktileProvider_iid))
+{
+	m_providers = m_pluginLoader->instances<QtDockProvider>();
 }
 
 QtDockManager::~QtDockManager()
 {
-	qDeleteAll(m_providers);
 }
 
 void QtDockManager::addProvider(QtDockProvider *provider)

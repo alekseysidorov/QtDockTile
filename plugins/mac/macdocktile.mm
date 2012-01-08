@@ -1,5 +1,6 @@
 /**************************************************************************
 **
+**  macdocktile.h
 **
 ** Copyright (c) 2011 Nokia Corporation and/or its subsidiary(-ies).
 **

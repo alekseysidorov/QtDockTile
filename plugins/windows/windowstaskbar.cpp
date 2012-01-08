@@ -1,3 +1,27 @@
+/****************************************************************************
+ *  windowstaskbar.cpp
+ *
+ *  Copyright (c) 2011 by Sidorov Aleksey <gorthauer87@ya.ru>
+ *
+ ***************************************************************************
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+*****************************************************************************/
+
 #include "windowstaskbar.h"
 #include <QSysInfo>
 #include <QtPlugin>
@@ -12,6 +36,7 @@ WindowsTaskBar::WindowsTaskBar(QObject *parent) :
 	QtDockProvider(parent),
 	m_menuExporter(new JumpListsMenuExporter(this))
 {
+	qDebug() << Q_FUNC_INFO;
 	connect(qApp, SIGNAL(aboutToQuit()), SLOT(deleteJL()));
 }
 
@@ -67,16 +92,11 @@ QPixmap WindowsTaskBar::createBadge(const QString &badge) const
 	QPainter painter(&pixmap);
 	painter.setRenderHint(QPainter::Antialiasing);
 	QPalette palette = window()->palette();
-
 	painter.setBrush(palette.toolTipBase());
 
 	QPen pen = painter.pen();
 	pen.setColor(palette.color(QPalette::ToolTipText));
 	painter.setPen(pen);
-
-	//QFont font = painter.font();
-	//font.setPointSizeF(font.pointSizeF() * 0.8);
-	//painter.setFont(font);
 
 	QString label = QFontMetrics(painter.font()).elidedText(badge, Qt::ElideMiddle, rect.width());
 	painter.drawRoundedRect(rect, 5, 5);

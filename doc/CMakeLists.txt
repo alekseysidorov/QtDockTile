@@ -1,0 +1,85 @@
+find_package(Doxygen)
+
+if(DOXYGEN_FOUND)
+	set(DOXYGEN_PROJECT_NAME QtDockTile)
+	set(DOXYGEN_PROJECT_VERSION_STRING ${CMAKE_QTDOCKTILE_VERSION_STRING})
+
+	set(DOXYGEN_DOC_LANG English CACHE STRING "Documentation language")
+	set(DOXYGEN_DOC_BRIEF_MEMBER_DESC NO CACHE STRING "Include brief member descriptions after the members that are listed in the file and class documentation")
+	set(DOXYGEN_DOC_EXTRACT_PRIVATE NO CACHE STRING "")
+	set(DOXYGEN_DOC_EXTRACT_STATIC NO CACHE STRING "")
+	set(DOXYGEN_DOC_QUIET NO CACHE STRING "Quiet documentation generation")
+	set(DOXYGEN_DOC_FILE_PATTERNS "" CACHE STRING "Space separated wildcard patterns")
+	set(DOXYGEN_DOC_EXCLUDE_PATTERNS *_p.h CACHE STRING "Space separated wildcard patterns")
+	set(DOXYGEN_DOC_EXCLUDE_SYMBOLS d_ptr CACHE STRING "Space separated wildcard patterns")
+	set(DOXYGEN_DOC_SOURCE_BROWSER NO CACHE STRING "")
+	set(DOXYGEN_DOC_INLINE_SOURCES NO CACHE STRING "")
+	set(DOXYGEN_DOC_REFERENCED_BY_RELATION NO CACHE STRING "For each documented function all documented functions referencing it will be listed")
+	set(DOXYGEN_DOC_REFERENCES_RELATION NO CACHE STRING "For each documented function all documented entities called/used by that function will be listed")
+	set(DOXYGEN_DOC_GENERATE_ECLIPSEHELP NO CACHE STRING "")
+	set(DOXYGEN_DOC_GENERATE_TREEVIEW NO CACHE STRING "")
+	set(DOXYGEN_DOC_TREEVIEW_WIDTH 250 CACHE STRING "Set width if GENERATE_TREEVIEW is YES")
+	set(DOXYGEN_DOC_EXPAND_ONLY_PREDEF NO CACHE STRING "")
+	set(DOXYGEN_DOC_PREDEFINED Q_QDOC CACHE STRING "Predefined preprocessor macros names (like gcc -D ...)")
+	set(DOXYGEN_DOC_CLASS_DIAGRAMS NO CACHE STRING "")
+	set(DOXYGEN_DOC_HIDE_UNDOC_RELATIONS YES CACHE STRING "")
+	set(DOXYGEN_DOC_HAVE_DOT NO CACHE STRING "Advanced graph visualization")
+	set(DOXYGEN_DOC_UML_LOOK NO CACHE STRING "")
+	set(DOXYGEN_DOC_CALL_GRAPH NO CACHE STRING "Works only if HAVE_DOT is YES. Enable only if you know what you are doing!")
+	set(DOXYGEN_DOC_CALLER_GRAPH NO CACHE STRING "Works only if HAVE_DOT is YES. Enable only if you know what you are doing!")
+	set(DOXYGEN_DOC_DOT_GRAPH_MAX_NODES 50 CACHE STRING "")
+	set(DOXYGEN_DOC_MAX_DOT_GRAPH_DEPTH 0 CACHE STRING "0 is equal to no restriction")
+
+	mark_as_advanced(
+		DOXYGEN_DOC_BRIEF_MEMBER_DESC
+		DOXYGEN_DOC_EXTRACT_PRIVATE
+		DOXYGEN_DOC_EXTRACT_STATIC
+		DOXYGEN_DOC_QUIET
+		DOXYGEN_DOC_FILE_PATTERNS
+		DOXYGEN_DOC_EXCLUDE_PATTERNS
+		DOXYGEN_DOC_EXCLUDE_SYMBOLS
+		DOXYGEN_DOC_INLINE_SOURCES
+		DOXYGEN_DOC_REFERENCED_BY_RELATION
+		DOXYGEN_DOC_REFERENCES_RELATION
+		DOXYGEN_DOC_TREEVIEW_WIDTH
+		DOXYGEN_DOC_EXPAND_ONLY_PREDEF
+		DOXYGEN_DOC_PREDEFINED
+		DOXYGEN_DOC_HIDE_UNDOC_RELATIONS
+		DOXYGEN_DOC_CALL_GRAPH
+		DOXYGEN_DOC_CALLER_GRAPH
+		DOXYGEN_DOC_DOT_GRAPH_MAX_NODES
+		DOXYGEN_DOC_MAX_DOT_GRAPH_DEPTH
+	)
+
+	set(DOXYGEN_OUTPUT_DIR html)
+	set(DOXYGEN_SOURCE_DIR ${CMAKE_SOURCE_DIR}/lib)
+
+	configure_file(Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+	configure_file(DoxygenLayout.xml.in ${CMAKE_CURRENT_BINARY_DIR}/DoxygenLayout.xml @ONLY)
+	add_custom_target(doc ALL
+		${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+		COMMENT "Building documentation"
+		SOURCE Doxyfile.in DoxygenLayout.xml)
+
+	install(DIRECTORY
+		${CMAKE_CURRENT_BINARY_DIR}/doc/html
+		${CMAKE_CURRENT_BINARY_DIR}/doc/qch
+		DESTINATION share/QtDockTile/doc
+		COMPONENT CoreDevel
+	)
+
+	add_dependencies(qtdocktile doc)
+endif(DOXYGEN_FOUND)
+
+#get_filename_component(_dir ${QT_QMAKE_EXECUTABLE} PATH)
+
+#find_program(QT_QDOC3_EXECUTABLE
+#	NAMES qdoc3
+#	PATHS
+#		${_dir}
+#)
+
+#find_package(QDoc3)
+#if(QT_QDOC3_EXECUTABLE)
+
+#endif()

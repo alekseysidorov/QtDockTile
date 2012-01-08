@@ -1,3 +1,28 @@
+/****************************************************************************
+ *  unitylauncher.cpp
+ *
+ *  Copyright (c) 2011 by Sidorov Aleksey <gorthauer87@ya.ru>
+ *  Copyright (c) 2011 Vsevolod Velichko <torkvema@gmail.com>
+ *
+ ***************************************************************************
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+*****************************************************************************/
+
 #include "unitylauncher.h"
 #include <QApplication>
 #include <dbusmenuexporter.h>
@@ -34,6 +59,7 @@ UnityLauncher::UnityLauncher(QObject *parent) :
 
 UnityLauncher::~UnityLauncher()
 {
+	qDebug() << Q_FUNC_INFO;
 }
 
 bool UnityLauncher::isUsable() const
@@ -43,9 +69,12 @@ bool UnityLauncher::isUsable() const
 
 void UnityLauncher::setMenu(QMenu *menu)
 {
+	if (m_menuExporter)
+		m_menuExporter.data()->deleteLater();
+
 	if (menu) {
 		QString uri = appUri();
-		m_menuExporter.reset(new DBusMenuExporter(uri, menu));
+		m_menuExporter = new DBusMenuExporter(uri, menu);
 		sendMessage("quicklist", uri);
 	} else
 		sendMessage("quicklist", QString());
