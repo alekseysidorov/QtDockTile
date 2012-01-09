@@ -151,8 +151,7 @@ void QtMacDockTile::setMenu(QMenu *menu)
 
 void QtMacDockTile::setBadge(const QString &badge)
 {
-    const char *utf8String = badge.toUtf8().constData();
-    NSString *cocoaString = [[NSString alloc] initWithUTF8String:utf8String];
+    NSString *cocoaString = [[NSString alloc] initWithUTF8String:badge.toUtf8().constData()];
     [[NSApp dockTile] setBadgeLabel:cocoaString];
     [cocoaString release];
 }

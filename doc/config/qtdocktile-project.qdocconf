@@ -1,0 +1,31 @@
+include(compat.qdocconf)
+include(macros.qdocconf)
+include(qt-cpp-ignore.qdocconf)
+include(qt-defines.qdocconf)
+
+sourceencoding = UTF-8
+outputencoding = UTF-8
+naturallanguage = en_US
+
+project = QtDockTile
+description = QtDockTile Documentation
+url = http://gorthauer.github.com
+language = Cpp
+
+sources.fileextensions = "*.cpp *.qdoc *.mm *.qml"
+headers.fileextensions = "*.h *.ch *.h++ *.hh *.hpp *.hxx"
+examples.fileextensions = "*.cpp *.h *.js *.xq *.svg *.xml *.ui *.qhp *.qhcp *.qml"
+examples.imageextensions = "*.png *.jpeg *.jpg *.gif *.mng"
+
+headerdirs = $TOPSRC/lib/
+
+sourcedirs = $TOPSRC/lib/ \
+             $TOPSRC/doc/src
+
+exampledirs = $TOPSRC/example
+
+imagedirs = $TOPSRC/doc/src/images \
+            $TOPSRC/doc/config/images
+
+outputdir = $DESTDIR/html
+base      = file:$DESTDIR
