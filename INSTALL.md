@@ -15,7 +15,7 @@ $ make <br />
 $ sudo make install <br />
 
 ### example 
-Just launch simpledock or simpledock.app on os x
+Just launch simpledock or simpledock.app on os x. On kde you may be need launch a kbuildsycoca at root.
 
 ### uninstall
 
