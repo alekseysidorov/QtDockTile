@@ -6,7 +6,7 @@ $ git submodule update --init
 
 ### build
 
-$ mkdir build
+$ mkdir build <br />
 $ cmake ..
 $ make 
 
