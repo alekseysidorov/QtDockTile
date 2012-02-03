@@ -40,6 +40,7 @@ public:
     virtual void setProgress(int percents);
     virtual void alert(bool on);
 private:
+    bool m_isAlert;
 };
 
 #endif // MACDOCKTILE_H

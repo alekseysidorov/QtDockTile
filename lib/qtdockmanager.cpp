@@ -101,7 +101,7 @@ int QtDockManager::progress() const
 
 void QtDockManager::alert(bool on)
 {
-	_provider->alert(on);
+    _provider->alert(on);
 }
 
 QVariant QtDockManager::platformInvoke(const QByteArray &method, const QVariant &arguments)

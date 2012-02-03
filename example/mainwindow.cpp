@@ -37,9 +37,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionElementWithIcon->setIcon(QIcon::fromTheme("applications-internet"));
 	m_tile->setMenu(ui->menu);
 
-    connect(ui->pushButton, SIGNAL(clicked()), m_tile, SLOT(alert()));
     connect(ui->lineEdit, SIGNAL(textChanged(QString)), m_tile, SLOT(setBadge(QString)));
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), m_tile, SLOT(setProgress(int)));
+    connect(ui->alertButton, SIGNAL(clicked()), m_tile, SLOT(alert()));
 
 	connect(ui->element, SIGNAL(triggered()), SLOT(actionTriggered()));
 	connect(ui->element1, SIGNAL(triggered()), SLOT(actionTriggered()));

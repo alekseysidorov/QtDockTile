@@ -44,6 +44,7 @@
 #include <QIcon>
 #include <QPainter>
 #include <QtPlugin>
+#include <QDebug>
 
 extern void qt_mac_set_dock_menu(QMenu *);
 
@@ -96,9 +97,9 @@ static ApplicationProgressView *sharedProgressView = nil;
     Q_UNUSED(rect)
     NSRect boundary = [self bounds];
     [[NSApp applicationIconImage] drawInRect:boundary
-                                     fromRect:NSZeroRect
-                                    operation:NSCompositeCopy
-                                     fraction:1.0];
+        fromRect:NSZeroRect
+        operation:NSCompositeCopy
+        fraction:1.0];
     NSRect progressBoundary = boundary;
     progressBoundary.size.height *= 0.13;
     progressBoundary.size.width *= 0.8;
@@ -128,7 +129,8 @@ static ApplicationProgressView *sharedProgressView = nil;
 
 
 QtMacDockTile::QtMacDockTile(QObject *parent) :
-    QtDockProvider(parent)
+    QtDockProvider(parent),
+    m_isAlert(false)
 {
     qDebug("%s", Q_FUNC_INFO);
     [[ApplicationProgressView sharedProgressView] setRangeMin:0 max:100];
@@ -169,8 +171,14 @@ void QtMacDockTile::setProgress(int value)
 
 void QtMacDockTile::alert(bool on)
 {
-    if (on)
-        [NSApp requestUserAttention: NSInformationalRequest];
+    m_isAlert = on;
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (on) {
+        [[NSApplication sharedApplication] requestUserAttention:NSInformationalRequest];
+    } else {
+        [[NSApplication sharedApplication] cancelUserAttentionRequest:NSInformationalRequest];
+    }
+    [pool release];
 }
 
 

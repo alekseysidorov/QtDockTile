@@ -28,15 +28,16 @@ PluginLoader::~PluginLoader()
 
 QObjectList PluginLoader::instances()
 {
-	QMutexLocker locker(&m_mutex);
+    QMutexLocker locker(&m_mutex);
+    Q_UNUSED(locker);
 
-	QObjectList list;
-	for (int i = 0; i < m_plugins.count(); i++) {
-		QObject *obj = m_plugins.at(i)->instance();
-		if (obj)
-			list << obj;
-	}
-	return list;
+    QObjectList list;
+    for (int i = 0; i < m_plugins.count(); i++) {
+        QObject *obj = m_plugins.at(i)->instance();
+        if (obj)
+            list << obj;
+    }
+    return list;
 }
 
 void PluginLoader::load()
@@ -54,7 +55,7 @@ void PluginLoader::load()
 		QPluginLoader* loader = new QPluginLoader(plugins.at(i));
 		QObject *o = loader->instance();
 		if (o && (m_interfaceId.isEmpty() || o->qt_metacast(m_interfaceId))) {
-			m_plugins.append(loader);
+            m_plugins.append(loader);
 		} else {
 #if !defined QT_NO_DEBUG
 			if (showDebug)
