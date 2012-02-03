@@ -32,3 +32,35 @@ connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), m_tile, SLOT(setProgres
 As you can see, it is very simple!
 
 ### Restrictions
+
+#### For Unity
+For correct work of API existence of /usr/share/applications \*.desktop icon is essential.
+
+* Badges are only digitals and not less than 0. Else it prints 0
+* Exported menu doesn't shows submenu, so it is better not to use them
+* If menu is exported in appmenu, it completely doesn't appear
+* There is a bug in realization of DBusMenuExplorer, so check state is inverted
+
+#### For Windows
+
+* Only 2 symbols as badges
+* Last files from jump lists disappear
+* Actions are not supported: switch keys and inactive actions
+* Submenu is not supported
+
+### Conclusion
+
+If you want menu to be exported for sure it has to satisfy this requirements:
+
+* No submenu
+* No checkable or inactive items
+* Little amount of items
+* No change after it is setted by setMenu
+
+Two more advices:
+
+* Correct work of dock is guaranteed only in case of single application, so use it with QtSingleApplication or anything like it
+* In badges you have to use only positive numbers, that are less than 100
+
+In other cases something may be unavailable on some platform.
+All code are licensed under LGPL licence.
