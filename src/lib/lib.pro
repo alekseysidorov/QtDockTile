@@ -1,4 +1,4 @@
-#load(qt_module)
+load(qt_module)
 
 TARGET = QtDockTile
 QT = core network gui
@@ -7,11 +7,11 @@ TEMPLATE = lib
 DESTDIR = ../../lib
 
 CONFIG += module
-MODULE_PRI += ../../modules/qt_docktile.pri 
+MODULE_PRI += ../../modules/qt_docktile.pri
 
 !static:DEFINES += QT_MAKEDLL
 
-#load(qt_module_config)
+load(qt_module_config)
 
 PRIVATE_HEADERS += \
     qtdocktile_p.h \

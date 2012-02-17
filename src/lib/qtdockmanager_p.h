@@ -30,7 +30,7 @@
 #define QTDOCKMANAGER_P_H
 #include <QObject>
 #include <QMenu>
-#include <pluginloader.h>
+#include "pluginloader_p.h"
 
 class QtDockProvider;
 typedef QList<QtDockProvider*> QtDockProviderList;

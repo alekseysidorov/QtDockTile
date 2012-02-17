@@ -27,8 +27,8 @@
 
 #include <QtCore/qglobal.h>
 
-#ifndef QTDOCKTILE_STATIC
-#  if defined(QTDOCKTILE_SHARED)
+#ifndef QT_DOCKTILE_STATIC
+#  if defined(QT_DOCKTILE_LIB)
 #    define QTDOCKTILE_EXPORT Q_DECL_EXPORT
 #  else
 #    define QTDOCKTILE_EXPORT Q_DECL_IMPORT

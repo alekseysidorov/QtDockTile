@@ -1,4 +1,5 @@
-QTDOCKTILE_VERSION = 1.0.0
+include(modules/qt_docktile.pri)
+
 TEMPLATE = subdirs
 CONFIG += ordered
 SUBDIRS += \
@@ -6,7 +7,8 @@ SUBDIRS += \
     src
 
 OTHER_FILES += \
-    doc/qtdocktile.qdoc
+    doc/qtdocktile.qdoc \
+    sync.profile
 
 include(doc/doc.pri)
  

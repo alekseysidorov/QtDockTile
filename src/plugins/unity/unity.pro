@@ -1,12 +1,15 @@
-DESTDIR= ../../../../plugins/docktile
+DESTDIR= ../../../plugins/docktile
 TEMPLATE = lib
 TARGET = unitylauncher
 DEPENDPATH += .
-INCLUDEPATH += .
+INCLUDEPATH += . ../../lib/
 
-QT = core dbus
+QT = core dbus gui
 
-unix: CONFIG += plugin
+CONFIG += plugin \
+    link_pkgconfig
+
+PKGCONFIG += dbusmenu-qt
 
 HEADERS += unitylauncher.h
 SOURCES += unitylauncher.cpp
