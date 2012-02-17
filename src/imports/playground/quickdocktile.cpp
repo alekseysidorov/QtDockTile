@@ -35,7 +35,7 @@ QuickDockTile::QuickDockTile()
 
 void QuickDockTile::registerTypes(const char *uri)
 {
-	Q_ASSERT(uri == QLatin1String("org.quickdocktile"));
+    Q_ASSERT(uri == QLatin1String("Playground"));
 
 	qmlRegisterType<QtDockTile>(uri, 1, 0, "DockTile");
 }

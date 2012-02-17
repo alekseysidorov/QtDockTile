@@ -37,8 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionElementWithIcon->setIcon(QIcon::fromTheme("applications-internet"));
 	m_tile->setMenu(ui->menu);
 
-    connect(ui->lineEdit, SIGNAL(textChanged(QString)), m_tile, SLOT(setBadge(QString)));
-    connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), m_tile, SLOT(setProgress(int)));
+    connect(ui->lineEdit, SIGNAL(textChanged(QString)), this, SLOT(onBadgeChanged(QString)));
+    connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(onProgressChanged(int)));
     connect(ui->alertButton, SIGNAL(clicked()), m_tile, SLOT(alert()));
 
 	connect(ui->element, SIGNAL(triggered()), SLOT(actionTriggered()));
@@ -55,5 +55,15 @@ MainWindow::~MainWindow()
 void MainWindow::actionTriggered() const
 {
 	QAction *action = static_cast<QAction*>(sender());
-	statusBar()->showMessage(tr("Action %1 triggered").arg(action->text()), 2000);
+    statusBar()->showMessage(tr("Action %1 triggered").arg(action->text()), 2000);
+}
+
+void MainWindow::onProgressChanged(int percent)
+{
+    m_tile->setProgress(percent);
+}
+
+void MainWindow::onBadgeChanged(const QString &text)
+{
+    m_tile->setBadge(text);
 }

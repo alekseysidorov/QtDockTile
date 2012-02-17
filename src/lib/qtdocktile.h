@@ -48,16 +48,17 @@ public:
     QString badge() const;	
     int progress() const;
 	Q_INVOKABLE QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);
+
+    void setBadge(int count);
+    void setBadge(const QString &text);
+    void setProgress(int percent);
+    void setMenu(QMenu *menu);
 signals:
     void menuChanged(QMenu *menu);
     void badgeChanged(const QString &badje);
 	void progressChanged(int percent);
 public slots:
     void alert(bool on = true);
-	void setBadge(int count);
-    void setBadge(const QString &text);
-    void setProgress(int percent);
-	void setMenu(QMenu *menu);
 protected:
     QScopedPointer<QtDockTilePrivate> d_ptr;
 };

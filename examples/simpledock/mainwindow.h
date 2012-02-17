@@ -40,6 +40,8 @@ public:
     ~MainWindow();
 private slots:
 	void actionTriggered() const;
+    void onProgressChanged(int percent);
+    void onBadgeChanged(const QString &text);
 private:
     Ui::MainWindow *ui;
     QtDockTile *m_tile;

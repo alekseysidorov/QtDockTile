@@ -20,7 +20,7 @@ add_library(quickdocktile SHARED ${SRC} ${HDR} ${RCC} ${MOC_SRCS})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}
     .
-    ../lib
+    ../../lib
     ${QT_QTDECLARATIVE_INCLUDE_DIR}
 )
 
@@ -31,7 +31,7 @@ target_link_libraries(quickdocktile
     )
 
 set(IMPORTSDIR ${QT_IMPORTS_DIR})
-set(IMPORT_DESTINATION ${IMPORTSDIR}/org/quickdocktile)
+set(IMPORT_DESTINATION ${IMPORTSDIR}/Playground)
 install(TARGETS quickdocktile
     RUNTIME DESTINATION ${IMPORT_DESTINATION}
     LIBRARY DESTINATION ${IMPORT_DESTINATION}
