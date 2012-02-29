@@ -11,8 +11,6 @@ add_library(qtdocktile
     ${MOC_SRC}
 )
 
-add_definitions(-DQTDOCKTILE_SHARED)
-
 add_public_header(qtdocktile_global.h)
 generate_public_header(qtdocktile.h QtDockTile)
 generate_public_header(qtdockprovider.h QtDockProvider)
@@ -20,7 +18,7 @@ generate_public_header(qtdockprovider.h QtDockProvider)
 set_target_properties(qtdocktile PROPERTIES
     VERSION ${CMAKE_QTDOCKTILE_VERSION_STRING}
     SOVERSION ${CMAKE_QTDOCKTILE_VERSION_MAJOR}
-    DEFINE_SYMBOL QTDOCKTILE_SHARED
+    DEFINE_SYMBOL QT_DOCKTILE_LIB
 
     #FRAMEWORK TRUE
     #FRAMEWORK_VERSION ${CMAKE_QTDOCKTILE_VERSION_MAJOR}

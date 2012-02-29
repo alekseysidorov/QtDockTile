@@ -1,0 +1,7 @@
+win32:CONFIG(debug, debug|release) {
+	LIBS += -lqtdocktile$${QT_LIBINFIX}d
+} else {
+	LIBS += -lqtdocktile$${QT_LIBINFIX}
+}
+
+INCLUDEPATH += $$[QT_INSTALL_HEADERS]/QtDockTile

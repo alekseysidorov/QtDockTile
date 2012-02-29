@@ -1,4 +1,4 @@
-#include "pluginloader.h"
+#include "pluginloader_p.h"
 #include <QCoreApplication>
 #include <QDir>
 #include <QSet>
