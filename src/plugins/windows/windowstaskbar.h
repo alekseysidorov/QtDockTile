@@ -39,13 +39,16 @@ public:
 	virtual void setBadge(const QString &badge);
 	virtual void setProgress(int percents);
 	virtual void alert(bool on);
+	virtual QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);
+	QWidget *window() const;
 protected:
 	QPixmap createBadge(const QString &badge) const;
 	QSize overlayIconSize() const;
 private:
 	JumpListsMenuExporter *m_menuExporter;
+	QWeakPointer<QWidget> m_widget;
 private slots:
-	void deleteJL();
+	void onAboutToQuit();
 };
 
 #endif // WINDOWSTASKBAR_H

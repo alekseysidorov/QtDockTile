@@ -37,7 +37,7 @@ WindowsTaskBar::WindowsTaskBar(QObject *parent) :
 	m_menuExporter(new JumpListsMenuExporter(this))
 {
 	qDebug() << Q_FUNC_INFO;
-	connect(qApp, SIGNAL(aboutToQuit()), SLOT(deleteJL()));
+	connect(qApp, SIGNAL(aboutToQuit()), SLOT(onAboutToQuit()));
 }
 
 WindowsTaskBar::~WindowsTaskBar()
@@ -82,6 +82,20 @@ void WindowsTaskBar::alert(bool on)
 	}
 }
 
+QVariant WindowsTaskBar::platformInvoke(const QByteArray &method, const QVariant &arguments)
+{
+	if (method == "setWidget") {
+		m_widget = arguments.value<QWidget*>();
+		return true;
+	}
+	return QtDockProvider::platformInvoke(method, arguments);
+}
+
+QWidget *WindowsTaskBar::window() const
+{
+	return m_widget.isNull() ? QtDockProvider::window() : m_widget.data();
+}
+
 QPixmap WindowsTaskBar::createBadge(const QString &badge) const
 {
 	QPixmap pixmap(overlayIconSize());
@@ -112,7 +126,7 @@ QSize WindowsTaskBar::overlayIconSize() const
 	return QSize(size, size);
 }
 
-void WindowsTaskBar::deleteJL()
+void WindowsTaskBar::onAboutToQuit()
 {
 	deleteJumpLists();
 }

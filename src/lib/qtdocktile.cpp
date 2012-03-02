@@ -57,7 +57,17 @@ QtDockTile::QtDockTile(QObject *parent) :
 {
     connect(manager(), SIGNAL(badgeChanged(QString)), SIGNAL(badgeChanged(QString)));
     connect(manager(), SIGNAL(menuChanged(QMenu*)), SIGNAL(menuChanged(QMenu*)));
-    connect(manager(), SIGNAL(progressChanged(int)), SIGNAL(progressChanged(int)));
+	connect(manager(), SIGNAL(progressChanged(int)), SIGNAL(progressChanged(int)));
+}
+
+QtDockTile::QtDockTile(QWidget *widget, QObject *parent) :
+	QObject(parent ? parent : widget)
+{
+	manager()->platformInvoke("setWidget", qVariantFromValue(widget));
+
+	connect(manager(), SIGNAL(badgeChanged(QString)), SIGNAL(badgeChanged(QString)));
+	connect(manager(), SIGNAL(menuChanged(QMenu*)), SIGNAL(menuChanged(QMenu*)));
+	connect(manager(), SIGNAL(progressChanged(int)), SIGNAL(progressChanged(int)));
 }
 
 /*!
