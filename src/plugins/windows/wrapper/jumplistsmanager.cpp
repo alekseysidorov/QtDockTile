@@ -23,14 +23,14 @@
  *
 *****************************************************************************/
 
+#include <string>
+#include <iostream>
 #include "jumplistsmanager.h"
 #include "taskbar.h"
 #include "handling.h"
-#include <ShObjIdl.h>
-#include <Propvarutil.h>
-#include <Propkey.h>
-#include <string>
-#include <iostream>
+#include "_winapi.h"
+
+using namespace WinApi;
 
 JumpListsManager *JumpListsManager::instance()
 {
@@ -71,8 +71,8 @@ void JumpListsManager::addTask(ActionInfo *info)
 {
 	if (!m_destList)
 		return;
-	IShellLinkW *task;
-	HRESULT res = CoCreateInstance(CLSID_ShellLink, 0, CLSCTX_INPROC_SERVER, IID_IShellLinkW, (void**)&task);
+	WinApi::IShellLinkW *task;
+	HRESULT res = CoCreateInstance(WinApi::CLSID_ShellLink, 0, CLSCTX_INPROC_SERVER, WinApi::IID_IShellLinkW, (void**)&task);
 	if (FAILED(res))
 		return;
 	task->SetDescription(info->description);
@@ -91,7 +91,7 @@ void JumpListsManager::addTask(ActionInfo *info)
 	InitPropVariantFromString(info->name, &titlepv);
 	title->SetValue(PKEY_Title, titlepv);
 	title->Commit();
-	PropVariantClear(&titlepv);
+	WinApi::PropVariantClear(&titlepv);
 
 	res = m_destListContent->AddObject(task);
 	title->Release();
@@ -116,10 +116,10 @@ void JumpListsManager::deleteList(const wchar_t *appId)
 
 void JumpListsManager::addSeparator()
 {
-	IShellLinkW *separator;
+	WinApi::IShellLinkW *separator;
 	IPropertyStore *propStore;
 	PROPVARIANT pv;
-	HRESULT res = CoCreateInstance(CLSID_ShellLink, 0, CLSCTX_INPROC_SERVER, IID_IShellLinkW, (void**)&separator);
+	HRESULT res = CoCreateInstance(WinApi::CLSID_ShellLink, 0, CLSCTX_INPROC_SERVER, WinApi::IID_IShellLinkW, (void**)&separator);
 	if (FAILED(res))
 		return;
 	res = separator->QueryInterface(IID_IPropertyStore, (void**)&propStore);
@@ -129,7 +129,7 @@ void JumpListsManager::addSeparator()
 	}
 	InitPropVariantFromBoolean(TRUE, &pv);
 	propStore->SetValue(PKEY_AppUserModel_IsDestListSeparator, pv);
-	PropVariantClear(&pv);
+	WinApi::PropVariantClear(&pv);
 	propStore->Commit();
 	propStore->Release();
 	res = m_destListContent->AddObject(separator);
@@ -199,11 +199,10 @@ std::wstring JumpListsManager::makeArgs(ActionInfo *info)
 #endif
 
 	// Convert to a wchar_t*
-	size_t origsize = strlen(info->id) + 1;
+	size_t origsize = strlen(info->id);
 	const size_t newsize = 64;
-	size_t convertedChars = 0;
-	wchar_t buffer[newsize];
-	mbstowcs_s(&convertedChars, buffer, origsize, info->id, _TRUNCATE);
+	wchar_t buffer[newsize] = {0};
+	mbstowcs(buffer, info->id, origsize);
 	args += buffer;
 	return args;
 }
@@ -215,20 +214,13 @@ void JumpListsManager::handlerCallback(const char *id)
 	if (info)
 		if (jumpListsManager()->actionInvoker())
 			jumpListsManager()->actionInvoker()(info->data);
-
-//#pragma warning(push)
-//#pragma warning(disable:4244)
-//	uintptr_t ptr = _strtoui64(b, 0, 16);
-//#pragma warning(pop)
-//	if (JumpListsManager::instance()->actionInvoker())
-	//		JumpListsManager::instance()->actionInvoker()(reinterpret_cast<void*>(ptr));
 }
 
 ActionInfo *JumpListsManager::actionInfo(const char *id)
 {
 	ActionInfoMap map = jumpListsManager()->m_actionInfoMap;
 	ActionInfoMap::const_iterator it = map.find(id);
-	if (it != map.cend())
+	if (it != map.end())
 		return it->second;
 	return 0;
 }

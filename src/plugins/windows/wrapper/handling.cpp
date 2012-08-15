@@ -29,6 +29,13 @@
 EXPORT void CALLBACK
 RundllCallback(HWND hwnd, HINSTANCE hinst, LPSTR cmdLine, int cmdShow);
 
+#ifdef __MINGW32__
+EXPORT void CALLBACK _RundllCallback(HWND hwnd, HINSTANCE hinst, LPSTR cmdLine, int cmdShow)
+{
+	RundllCallback(hwnd, hinst, cmdLine, cmdShow);
+}
+#endif
+
 void CALLBACK RundllCallback(HWND, HINSTANCE, LPSTR cmdLine, int)
 {
 	WSADATA wsaData;

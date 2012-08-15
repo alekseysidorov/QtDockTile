@@ -24,14 +24,16 @@
 *****************************************************************************/
 
 #include "taskbar.h"
-#include <ShObjIdl.h>
+#include "_ITaskbarList4.h"
 #include "jumplistsmanager.h"
 #include <iostream>
 
-static ITaskbarList3 *windowsTaskBar()
+using namespace WinApi;
+
+static ITaskbarList4 *windowsTaskBar()
 {
-	ITaskbarList3 *taskbar;
-	if(S_OK != CoCreateInstance(CLSID_TaskbarList, 0, CLSCTX_INPROC_SERVER, IID_ITaskbarList3, (void**)&taskbar))
+	ITaskbarList4 *taskbar;
+	if(S_OK != CoCreateInstance(CLSID_TaskbarList, 0, CLSCTX_INPROC_SERVER, IID_ITaskbarList4, (void**)&taskbar))
 		return 0;
 	return taskbar;
 }
@@ -65,7 +67,7 @@ void setApplicationId(const wchar_t *appId)
 
 void setOverlayIcon(HWND winId, HICON icon, wchar_t *description)
 {
-	ITaskbarList3 *taskbar = windowsTaskBar();
+	ITaskbarList4 *taskbar = windowsTaskBar();
 	if (!taskbar)
 		return;
 
@@ -78,7 +80,7 @@ void setOverlayIcon(HWND winId, HICON icon, wchar_t *description)
 
 void clearOverlayIcon(HWND winId)
 {
-	ITaskbarList3 *taskbar = windowsTaskBar();
+	ITaskbarList4 *taskbar = windowsTaskBar();
 	if (!taskbar)
 		return;
 
@@ -88,7 +90,7 @@ void clearOverlayIcon(HWND winId)
 
 void setProgressValue(HWND winId, int progress)
 {
-	ITaskbarList3 *taskbar = windowsTaskBar();
+	ITaskbarList4 *taskbar = windowsTaskBar();
 	if (!taskbar)
 		return;
 	taskbar->HrInit();
@@ -100,7 +102,7 @@ void setProgressValue(HWND winId, int progress)
 void setProgressState(HWND winId, ProgressState state)
 {
 	TBPFLAG flags;
-	ITaskbarList3 *taskbar = windowsTaskBar();
+	ITaskbarList4 *taskbar = windowsTaskBar();
 	if (!taskbar)
 		return;
 	taskbar->HrInit();
