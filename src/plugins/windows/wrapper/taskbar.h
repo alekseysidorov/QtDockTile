@@ -25,6 +25,11 @@
 
 #ifndef TASKBAR_H
 #define TASKBAR_H
+
+#ifndef WINVER
+#	define WINVER 0x0500
+#endif
+
 #include <windows.h>
 
 #ifdef TASKWRAPPER
