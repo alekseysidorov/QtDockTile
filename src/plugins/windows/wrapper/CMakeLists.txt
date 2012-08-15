@@ -10,6 +10,7 @@ qt4_add_resources(QRC_SOURCES ${QRC})
 
 # This project will generate library
 add_library(wrapper SHARED ${SRC} ${MM} ${HDR} ${UIS_H} ${MOC_SRCS} ${QRC_SOURCES})
+set_target_properties(wrapper PROPERTIES PREFIX "")
 add_definitions(-DTASKWRAPPER)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}
@@ -17,12 +18,15 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}
 )
 
 target_link_libraries(wrapper
-	"dwmapi" "Shlwapi" "ws2_32"
+	"Shlwapi" "ws2_32"
 )
-set_target_properties(windowstaskbar PROPERTIES COMPILE_FLAGS "/Zc:wchar_t-") # do not treat wchar_t as built-in type
+if (MSVC)
+	set_target_properties(windowstaskbar PROPERTIES COMPILE_FLAGS "/Zc:wchar_t-") # do not treat wchar_t as built-in type
+endif()
 
 install(TARGETS wrapper
 	RUNTIME DESTINATION bin
 	LIBRARY DESTINATION lib
 	ARCHIVE DESTINATION lib
 )
+

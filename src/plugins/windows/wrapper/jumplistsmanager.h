@@ -25,14 +25,15 @@
 
 #ifndef JUMPLISTSMANAGER_H
 #define JUMPLISTSMANAGER_H
-#include "windows.h"
 #include <string>
 #include <map>
+#include <qt_windows.h>
+#include "_ICustomDestinationList.h"
 
 typedef void (*ActionInvoker)(void *data);
 struct ActionInfo;
-struct ICustomDestinationList;
-struct IObjectCollection;
+using WinApi::ICustomDestinationList;
+using WinApi::IObjectCollection;
 
 class JumpListsManager
 {

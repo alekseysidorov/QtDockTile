@@ -40,7 +40,7 @@ typedef QVector<wchar_t> WCharArray;
 static WCharArray toWCharArray(const QString &str)
 {
 	WCharArray array(str.length() + 1);
-	str.toWCharArray(array.data());
+	array[str.toWCharArray(array.data())] = 0;
 	return array;
 }
 
