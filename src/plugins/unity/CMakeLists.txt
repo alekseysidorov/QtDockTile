@@ -7,8 +7,8 @@ if(NOT QT_QTDBUS_FOUND OR NOT DBUSMENUQT_FOUND)
     return()
 endif(NOT QT_QTDBUS_FOUND OR NOT DBUSMENUQT_FOUND) 
 
-add_docktile_plugin(unitylauncher)
-target_link_libraries(unitylauncher
+add_docktile_plugin(unityplugin)
+target_link_libraries(unityplugin
     ${DBUSMENUQT_LIBRARIES}
     ${QT_QTDBUS_LIBRARY}
 )

@@ -94,7 +94,7 @@ QStringList PluginLoader::pluginList() const
 		if (processed.contains(paths.at(i)))
 			continue;
 		processed.insert(paths.at(i));
-		QDir pluginsDir(paths.at(i)+m_location);
+		QDir pluginsDir(paths.at(i) + m_location);
 
 		if (!pluginsDir.exists())
 			continue;
