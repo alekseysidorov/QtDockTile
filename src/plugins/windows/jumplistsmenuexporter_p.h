@@ -48,7 +48,7 @@ struct Data
 {
 	Data(QAction *action) : action(action), icon(action->icon()),
 		id(QUuid::createUuid().toString().toAscii()),
-		name(toWCharArray(action->text())),
+        name(toWCharArray(action->text().remove("&"))),
 		description(toWCharArray(action->toolTip())),
 		iconPath(toWCharArray(icon.filePath()))
 	{
