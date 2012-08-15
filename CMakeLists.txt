@@ -17,6 +17,7 @@ include(CommonUtils)
 
 #TODO check if vars is defined
 set(RLIBDIR bin)
+set(BINDIR bin)
 set(LIBDIR lib${LIB_SUFFIX})
 set(LIB_DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIBDIR})
 
