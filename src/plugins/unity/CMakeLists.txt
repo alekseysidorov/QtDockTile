@@ -1,10 +1,10 @@
 find_package(PkgConfig)
 pkg_check_modules(DBUSMENUQT dbusmenu-qt>=0.8.1 REQUIRED)
 
-find_package(Qt4 COMPONENTS QtDBus)
+find_package(Qt4 COMPONENTS QtDBus QUIET)
 if(NOT QT_QTDBUS_FOUND OR NOT DBUSMENUQT_FOUND)
-	message(STATUS "Cannot build unity plugin")
-	return()
+    message(STATUS "Cannot build unity plugin")
+    return()
 endif(NOT QT_QTDBUS_FOUND OR NOT DBUSMENUQT_FOUND) 
 
 add_docktile_plugin(unitylauncher)

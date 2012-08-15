@@ -1,5 +1,8 @@
 #fixme, write find modules and platform checks
 
+set(QT_QTDOCKTILE_PLUGINS_DIR "${QT_PLUGINS_DIR}/docktile" CACHE TYPE STRING)
+message(${QT_QTDOCKTILE_PLUGINS_DIR})
+
 macro(ADD_DOCKTILE_PLUGIN target)
     message(STATUS "Searching ${target} source and headers")
 
@@ -8,7 +11,7 @@ macro(ADD_DOCKTILE_PLUGIN target)
     file(GLOB HDR "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
     file(GLOB FORMS "${CMAKE_CURRENT_SOURCE_DIR}/*.ui")
     if(APPLE)
-            file(GLOB MM "${CMAKE_CURRENT_SOURCE_DIR}/*.mm")
+        file(GLOB MM "${CMAKE_CURRENT_SOURCE_DIR}/*.mm")
     endif()
 
     qt4_wrap_ui(UIS_H ${FORMS})
@@ -18,13 +21,13 @@ macro(ADD_DOCKTILE_PLUGIN target)
     add_library(${target} SHARED ${SRC} ${HDR} ${UIS_H} ${MM} ${MOC_SRC})
 
     include_directories(${CMAKE_CURRENT_BINARY_DIR}
-            .
-            ../../lib
+        .
+        ../../lib
     )
 
     target_link_libraries(${target}
-            ${QT_LIBRARIES}
-            qtdocktile
+        ${QT_LIBRARIES}
+        qtdocktile
     )
 
     set_target_properties(${target} PROPERTIES
@@ -32,16 +35,16 @@ macro(ADD_DOCKTILE_PLUGIN target)
     )
 
     install(TARGETS ${target}
-            RUNTIME DESTINATION "${QT_PLUGINS_DIR}/docktile"
-            LIBRARY DESTINATION "${QT_PLUGINS_DIR}/docktile"
+        RUNTIME DESTINATION ${QT_QTDOCKTILE_PLUGINS_DIR}
+        LIBRARY DESTINATION ${QT_QTDOCKTILE_PLUGINS_DIR}
     )
 endmacro()
 
 if(APPLE)
-	add_subdirectory(mac)
+    add_subdirectory(mac)
 elseif(UNIX)
-	add_subdirectory(unity)
-	add_subdirectory(dockmanager)
+    add_subdirectory(unity)
+    add_subdirectory(dockmanager)
 elseif(WIN32)
-	add_subdirectory(windows)	
+    add_subdirectory(windows)
 endif()
