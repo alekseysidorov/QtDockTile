@@ -4,7 +4,6 @@ if(NOT QT_QTDOCKTILE_INSTALL_EXAMPLES)
     set(SIMPLEDOCK_INTERNAL "INTERNAL")
 endif()
 
-
 add_simple_executable(simpledock
     ${SIMPLEDOCK_INTERNAL}
     LIBRARIES qtdocktile

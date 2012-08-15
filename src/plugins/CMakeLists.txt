@@ -1,7 +1,6 @@
 #fixme, write find modules and platform checks
 
 set(QT_QTDOCKTILE_PLUGINS_DIR "${QT_PLUGINS_DIR}/docktile" CACHE TYPE STRING)
-message(${QT_QTDOCKTILE_PLUGINS_DIR})
 
 macro(ADD_DOCKTILE_PLUGIN target)
     message(STATUS "Searching ${target} source and headers")
