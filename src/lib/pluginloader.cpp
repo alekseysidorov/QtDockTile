@@ -59,7 +59,7 @@ void PluginLoader::load()
 		} else {
 #if !defined QT_NO_DEBUG
 			if (showDebug)
-				qWarning() << "QAudioPluginLoader: Failed to load plugin: "
+				qWarning() << "DockTilePluginLoader: Failed to load plugin: "
 						   << plugins.at(i) << loader->errorString();
 #endif
 			delete o;
