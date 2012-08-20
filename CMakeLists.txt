@@ -41,5 +41,5 @@ if(NOT UNINSTALL_TARGET)
 	IMMEDIATE @ONLY)
     add_custom_target(uninstall
 	"${CMAKE_COMMAND}" -P "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake")
-    set(UNINSTALL_TARGET true CACHE TYPE INTERNAL)
+	set(UNINSTALL_TARGET true GLOBAL)
 endif()
