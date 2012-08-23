@@ -29,13 +29,15 @@ macro(ADD_DOCKTILE_PLUGIN target)
         qtdocktile
     )
 
-    set_target_properties(${target} PROPERTIES
-        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib"
-    )
+    if(NOT APPLE)
+        set_target_properties(${target} PROPERTIES
+            INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib"
+        )
+    endif()
 
     install(TARGETS ${target}
-	RUNTIME DESTINATION "${QT_QTDOCKTILE_PLUGINS_DIR}/docktile"
-	LIBRARY DESTINATION "${QT_QTDOCKTILE_PLUGINS_DIR}/docktile"
+        RUNTIME DESTINATION "${QT_QTDOCKTILE_PLUGINS_DIR}/docktile"
+        LIBRARY DESTINATION "${QT_QTDOCKTILE_PLUGINS_DIR}/docktile"
     )
 endmacro()
 

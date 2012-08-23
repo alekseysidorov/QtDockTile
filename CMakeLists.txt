@@ -31,7 +31,9 @@ option(QT_QTDOCKTILE_INSTALL_HEADERS "Install devel headers for qtdocktile" ON)
 option(QT_QTDOCKTILE_INSTALL_EXAMPLES "Install examples for qtdocktile" OFF)
 
 add_subdirectory(src)
-add_subdirectory(examples)
+if(QT_QTDOCKTILE_INSTALL_EXAMPLES)
+    add_subdirectory(examples)
+endif()
 #add_subdirectory(doc)
 
 if(NOT UNINSTALL_TARGET)
