@@ -1,5 +1,5 @@
 find_package(PkgConfig)
-pkg_check_modules(DBUSMENUQT dbusmenu-qt>=0.8.1 REQUIRED)
+pkg_check_modules(DBUSMENUQT dbusmenu-qt>=0.8.1)
 
 find_package(Qt4 COMPONENTS QtDBus QUIET)
 if(NOT QT_QTDBUS_FOUND OR NOT DBUSMENUQT_FOUND)
