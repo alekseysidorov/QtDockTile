@@ -1,4 +1,4 @@
-add_qml_module(docktile
+add_qml_module(qmldocktileplugin
     URI org.docktile
     QML_DIR qmldir
     SOURCE_DIR src
