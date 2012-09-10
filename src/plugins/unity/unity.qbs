@@ -8,7 +8,6 @@ DockTilePlugin {
     Depends { name: "dbusmenu-qt"; required: true }
     Depends { name: "qt.dbus"; required: true  }
 
-
     files: [
         "unitylauncher.h",
         "unitylauncher.cpp",
