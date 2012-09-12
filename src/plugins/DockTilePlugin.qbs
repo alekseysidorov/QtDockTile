@@ -4,9 +4,6 @@ import qbs.fileinfo 1.0 as FileInfo
 Product {
     type: ["dynamiclibrary"]
 
-    cpp.includePaths: [
-        "../lib",
-    ]
     destination: "bin/docktile"
     targetName: {
         if (qbs.debugInformation) {

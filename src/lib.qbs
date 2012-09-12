@@ -37,4 +37,11 @@ Product {
             "lib/qtdocktile.h",
         ]
     }
+
+    ProductModule {
+        Depends { name: "cpp" }
+        cpp.includePaths: [
+            product.buildDirectory + "/include/QtDockTile"
+        ]
+    }
 }
