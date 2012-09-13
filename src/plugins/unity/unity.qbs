@@ -5,8 +5,7 @@ DockTilePlugin {
     name: "unity"
     condition: qbs.targetOS === "linux"
 
-    Depends { name: "dbusmenu-qt"; required: true }
-    Depends { name: "qt.dbus"; required: true  }
+    Depends { name: "dbusmenu.qt" }    
 
     files: [
         "unitylauncher.h",
