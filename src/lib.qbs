@@ -11,6 +11,7 @@ Product {
     destination: "lib"
     type: ["dynamiclibrary", "installed_content"]
     cpp.defines: "QT_DOCKTILE_LIB"
+    cpp.visibility: "hidden"
 
     Depends { name: "cpp" }
     Depends { name: "Qt"; submodules: ["core", "gui", "widgets"] }

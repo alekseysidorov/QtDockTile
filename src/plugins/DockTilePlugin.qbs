@@ -5,6 +5,8 @@ Product {
     type: ["dynamiclibrary"]
 
     destination: "bin/docktile"
+    cpp.visibility: "hidden"
+
     targetName: {
         if (qbs.debugInformation) {
             switch (qbs.targetOS) {
