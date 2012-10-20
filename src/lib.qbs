@@ -8,7 +8,13 @@ Product {
     property string versionRelease: '0'
     property string version: versionMajor + '.' + versionMinor + '.' + versionRelease
 
-    destination: "lib"
+    destination: {
+        if (qbs.targetOS === 'windows')
+            return "bin";
+        else
+            return "lib";
+    }
+
     type: ["dynamiclibrary", "installed_content"]
     cpp.defines: "QT_DOCKTILE_LIB"
     cpp.visibility: "hidden"
