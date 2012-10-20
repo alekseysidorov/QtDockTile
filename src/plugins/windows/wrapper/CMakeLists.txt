@@ -12,6 +12,7 @@ qt4_add_resources(QRC_SOURCES ${QRC})
 add_library(wrapper SHARED ${SRC} ${MM} ${HDR} ${UIS_H} ${MOC_SRCS} ${QRC_SOURCES})
 set_target_properties(wrapper PROPERTIES PREFIX "")
 add_definitions(-DTASKWRAPPER)
+add_definitions(-DUNICODE)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}
 	.
@@ -21,7 +22,7 @@ target_link_libraries(wrapper
 	"shlwapi" "ws2_32"
 )
 if (MSVC)
-	set_target_properties(windowstaskbar PROPERTIES COMPILE_FLAGS "/Zc:wchar_t-") # do not treat wchar_t as built-in type
+        set_target_properties(windowstaskbar PROPERTIES COMPILE_FLAGS "/Zc:wchar_t-") # do not treat wchar_t as built-in type
 endif()
 
 install(TARGETS wrapper
