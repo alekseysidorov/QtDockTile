@@ -3,7 +3,15 @@ import "../DockTilePlugin.qbs" as DockTilePlugin
 
 DockTilePlugin {
     name: "windowstaskbar"
+
     condition: qbs.targetOS === "windows"
+
+    Depends { name: "windows.shlwapi" }
+    Depends { name: "windows.ws2_32" }
+    Depends { name: "windows.ole32" }
+    Depends { name: "windows.user32" }
+
+    cpp.defines: ['TASKWRAPPER']
 
     files: [
         "./jumplistsmenuexporter.h",

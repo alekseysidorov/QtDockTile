@@ -3,4 +3,4 @@
 	url = git://github.com/gorthauer/cmake-utils.git
 [submodule "qbs"]
 	path = qbs
-	url = https://github.com/qutIM/qbs-labs.git
+	url = git://github.com/qutIM/qbs-labs.git
