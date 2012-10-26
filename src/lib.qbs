@@ -37,6 +37,7 @@ Product {
 
     Group {
         qbs.installDir: "include/QtDockTile"
+        overrideTags: false
         fileTags: ["install"]
         files: [
             "lib/qtdockprovider.h",
