@@ -26,13 +26,16 @@
 #ifndef UNITYLAUNCHER_H
 #define UNITYLAUNCHER_H
 #include <qtdockprovider.h>
-#include <QWeakPointer>
+#include <QPointer>
 #include <QVariant>
 
 class DBusMenuExporter;
 class UnityLauncher : public QtDockProvider
 {
 	Q_OBJECT
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    Q_PLUGIN_METADATA(IID docktileProvider_iid)
+#endif
 public:
 	explicit UnityLauncher(QObject *parent = 0);
 	virtual ~UnityLauncher();
@@ -48,7 +51,7 @@ private:
 	template <typename T>
 	void sendMessage(const char *method, const T &value);
 	void sendMessage(const QVariantMap &properties);
-	QWeakPointer<DBusMenuExporter> m_menuExporter;
+	QPointer<DBusMenuExporter> m_menuExporter;
 };
 
 #endif // UNITYLAUNCHER_H

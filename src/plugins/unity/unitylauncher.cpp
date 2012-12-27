@@ -117,4 +117,6 @@ QString UnityLauncher::appUri() const
 	return QString("/%1").arg(qAppName());
 }
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
 Q_EXPORT_PLUGIN2(UnityLauncher, UnityLauncher)
+#endif

@@ -22,6 +22,7 @@ Product {
     Depends { name: "cpp" }
     Depends { name: "qt.core" }
     Depends { name: "qt.gui" }
+    Depends { name: "qt.widgets" }
     Depends { name: "qtdocktile" }
 }
 

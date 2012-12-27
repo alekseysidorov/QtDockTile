@@ -32,6 +32,7 @@
 #define QTDOCKMANAGER_P_H
 #include <QObject>
 #include <QMenu>
+#include <QPointer>
 #include "pluginloader_p.h"
 
 class QtDockProvider;
@@ -69,7 +70,7 @@ private:
 	QIcon m_dockIcon;
 	QIcon m_overlayIcon;
 	QString m_badge;
-	QWeakPointer<QMenu> m_menu;
+    QPointer<QMenu> m_menu;
 	int m_percent;
 };
 
