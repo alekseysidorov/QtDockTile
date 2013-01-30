@@ -37,8 +37,9 @@ Product {
 
     Group {
         qbs.installDir: "include/QtDockTile"
+        qbs.install: true
         overrideTags: false
-        fileTags: ["install"]
+        fileTags: ["install", "devheader"]
         files: [
             "lib/qtdockprovider.h",
             "lib/qtdocktile_global.h",
@@ -49,7 +50,29 @@ Product {
     ProductModule {
         Depends { name: "cpp" }
         cpp.includePaths: [
-            product.buildDirectory + "/include/QtDockTile"
+            product.buildDirectory + "/GeneratedFiles/include/QtDockTile"
         ]
+    }
+
+    Rule {
+        inputs: [ "devheader" ]
+        Artifact {
+            fileTags: [ "hpp",  "installed_content" ]
+            fileName: "GeneratedFiles/" + input.modules.qbs.installDir + "/" + input.fileName
+        }
+
+        prepare: {
+            var cmd = new JavaScriptCommand();
+            cmd.sourceCode = function() {
+                var inputFile = new TextFile(input.fileName, TextFile.ReadOnly);
+                var file = new TextFile(output.fileName, TextFile.WriteOnly);
+                file.truncate();
+                file.write("#include \"" + input.fileName + "\"\n");
+                file.close();
+            }
+            cmd.description = "generating " + FileInfo.fileName(output.fileName);
+            cmd.highlight = "filegen";
+            return cmd;
+        }
     }
 }
