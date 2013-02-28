@@ -2,7 +2,7 @@
  *  unitylauncher.cpp
  *
  *  Copyright (c) 2011 by Sidorov Aleksey <gorthauer87@ya.ru>
- *  Copyright (c) 2011 Vsevolod Velichko <torkvema@gmail.com>
+ *  Copyright (c) 2011, 2013 Vsevolod Velichko <torkvema@gmail.com>
  *
  ***************************************************************************
  *
