@@ -30,20 +30,21 @@
 class QtMacDockTilePrivate;
 class QtMacDockTile : public QtDockProvider
 {
-    Q_OBJECT
+	Q_OBJECT
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    Q_PLUGIN_METADATA(IID docktileProvider_iid)
+	Q_PLUGIN_METADATA(IID docktileProvider_iid)
 #endif
 public:
-    QtMacDockTile(QObject *parent = 0);
-    virtual ~QtMacDockTile();
-    virtual bool isUsable() const;
-    virtual void setMenu(QMenu *menu);
-    virtual void setBadge(const QString &badge);
-    virtual void setProgress(int percents);
-    virtual void alert(bool on);
+	QtMacDockTile(QObject *parent = 0);
+	virtual ~QtMacDockTile();
+	virtual bool isUsable() const;
+	virtual void setMenu(QMenu *menu);
+	virtual void setBadge(const QString &badge);
+	virtual void clearBadge();
+	virtual void setProgress(int percents);
+	virtual void alert(bool on);
 private:
-    bool m_isAlert;
+	bool m_isAlert;
 };
 
 #endif // MACDOCKTILE_H

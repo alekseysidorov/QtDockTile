@@ -158,6 +158,11 @@ void QtMacDockTile::setBadge(const QString &badge)
     [cocoaString release];
 }
 
+void QtMacDockTile::clearBadge()
+{
+    setBadge(QString());
+}
+
 void QtMacDockTile::setProgress(int value)
 {
     [[ApplicationProgressView sharedProgressView] setValue:value];

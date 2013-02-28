@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** QtDockTile - crossplatform for the work this docks 
+** QtDockTile - crossplatform for the work this docks
 **
 ** Copyright © 1301 USA
 ** Copyright © 2012 Sidorov Aleksey <gorthauer87@ya.ru>
@@ -82,6 +82,13 @@ void QtDockManager::setBadge(const QString &text)
 	m_badge = text;
 	_provider->setBadge(text);
 	emit badgeChanged(text);
+}
+
+void QtDockManager::clearBadge()
+{
+	m_badge = QString();
+	_provider->clearBadge();
+	emit badgeChanged(m_badge);
 }
 
 QString QtDockManager::badge() const

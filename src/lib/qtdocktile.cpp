@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** QtDockTile - crossplatform for the work this docks 
+** QtDockTile - crossplatform for the work this docks
 **
 ** Copyright © 1301 USA
 ** Copyright © 2012 Sidorov Aleksey <gorthauer87@ya.ru>
@@ -115,7 +115,10 @@ QMenu *QtDockTile::menu() const
 
 void QtDockTile::setBadge(const QString &text)
 {
-    manager()->setBadge(text);
+	if (text.isNull())
+		manager->clearBadge();
+	else
+		manager()->setBadge(text);
 }
 
 /*!
@@ -126,6 +129,17 @@ void QtDockTile::setBadge(const QString &text)
 void QtDockTile::setBadge(int count)
 {
 	manager()->setBadge(QString::number(count));
+}
+
+/*!
+	Clear the badge totally.
+	Setting an empty string as a badge can be different from clearing on some platforms,
+	so it's a preferred method.
+ */
+
+void QtDockTile::clearBadge()
+{
+	manager()->clearBadge();
 }
 
 /*!

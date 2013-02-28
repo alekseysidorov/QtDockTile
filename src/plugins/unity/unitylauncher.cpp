@@ -93,6 +93,13 @@ void UnityLauncher::setBadge(const QString &badge)
 	sendMessage(map);
 }
 
+void UnityLauncher::clearBadge()
+{
+	QVariantMap map;
+	map.insert(QLatin1String("count-visible"), false);
+	sendMessage(map);
+}
+
 void UnityLauncher::setProgress(int percents)
 {
 	int progress = qBound(0, percents, 100);
