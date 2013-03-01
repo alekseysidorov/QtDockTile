@@ -1,4 +1,4 @@
-## Readme document for QtDockTime library
+## Readme document for QtDockTile library
 
 Using issue of docks on desktops today become more and more popular. There is at least 3 popular solutions of this issue: MacOS Dock, Windows 7 taskbar and Unity launchers from Ubuntu. Also there is icon tasks in KDE 4.8.
 Looking at this, there is a need to cross-platform library for the work with all this docks.
