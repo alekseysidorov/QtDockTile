@@ -71,7 +71,7 @@ private:
 	QIcon m_dockIcon;
 	QIcon m_overlayIcon;
 	QString m_badge;
-    QPointer<QMenu> m_menu;
+	QPointer<QMenu> m_menu;
 	int m_percent;
 };
 

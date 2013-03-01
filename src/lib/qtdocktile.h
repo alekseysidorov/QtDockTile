@@ -54,7 +54,6 @@ public:
 
 	void setBadge(int count);
 	void setBadge(const QString &text);
-	void clearBadge();
 	void setProgress(int percent);
 	void setMenu(QMenu *menu);
 signals:
@@ -65,6 +64,8 @@ public slots:
 	void alert(bool on = true);
 protected:
 	QScopedPointer<QtDockTilePrivate> d_ptr;
+private:
+    void clearBadge();
 };
 
 #endif // QTDOCKICON_H

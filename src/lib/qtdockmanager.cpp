@@ -79,9 +79,13 @@ QMenu *QtDockManager::menu() const
 
 void QtDockManager::setBadge(const QString &text)
 {
-	m_badge = text;
-	_provider->setBadge(text);
-	emit badgeChanged(text);
+	if (text.isNull())
+		clearBadge();
+	else {
+		m_badge = text;
+		_provider->setBadge(text);
+		emit badgeChanged(text);
+	}
 }
 
 void QtDockManager::clearBadge()

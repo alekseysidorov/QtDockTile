@@ -116,7 +116,7 @@ QMenu *QtDockTile::menu() const
 void QtDockTile::setBadge(const QString &text)
 {
 	if (text.isNull())
-		manager->clearBadge();
+		clearBadge();
 	else
 		manager()->setBadge(text);
 }
@@ -130,12 +130,6 @@ void QtDockTile::setBadge(int count)
 {
 	manager()->setBadge(QString::number(count));
 }
-
-/*!
-	Clear the badge totally.
-	Setting an empty string as a badge can be different from clearing on some platforms,
-	so it's a preferred method.
- */
 
 void QtDockTile::clearBadge()
 {

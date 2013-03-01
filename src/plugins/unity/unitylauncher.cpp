@@ -82,6 +82,12 @@ void UnityLauncher::setMenu(QMenu *menu)
 
 void UnityLauncher::setBadge(const QString &badge)
 {
+	if (badge.isEmpty())
+	{
+		clearBadge();
+		return;
+	}
+
 	bool ok;
 	qint64 count = badge.toInt(&ok);
 	if (!ok)

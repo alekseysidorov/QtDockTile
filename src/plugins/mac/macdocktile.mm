@@ -155,12 +155,14 @@ void QtMacDockTile::setBadge(const QString &badge)
 {
     NSString *cocoaString = [[NSString alloc] initWithUTF8String:badge.toUtf8().constData()];
     [[NSApp dockTile] setBadgeLabel:cocoaString];
+    [[NSApp dockTile] setShowsApplicationBadge:true];
     [cocoaString release];
 }
 
 void QtMacDockTile::clearBadge()
 {
     setBadge(QString());
+    [[NSApp dockTile] setShowsApplicationBadge:false];
 }
 
 void QtMacDockTile::setProgress(int value)
