@@ -58,7 +58,7 @@ Product {
         inputs: [ "devheader" ]
         Artifact {
             fileTags: [ "hpp",  "installed_content" ]
-            fileName: "GeneratedFiles/" + input.modules.qbs.installDir + "/" + input.fileName
+            fileName: "GeneratedFiles/" + input.moduleProperty('qbs', 'installDir') + "/" + input.fileName
         }
 
         prepare: {
