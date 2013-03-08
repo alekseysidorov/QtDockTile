@@ -57,11 +57,16 @@ void WindowsTaskBar::setMenu(QMenu *menu)
 void WindowsTaskBar::setBadge(const QString &badge)
 {
 	if (badge.isEmpty())
-		clearOverlayIcon(window()->winId());
+		clearBadge();
 	else {
 		QPixmap pixmap = createBadge(badge);
 		setOverlayIcon(window()->winId(), pixmap.toWinHICON());
 	}
+}
+
+void WindowsTaskBar::clearBadge()
+{
+	clearOverlayIcon(window()->winId());
 }
 
 void WindowsTaskBar::setProgress(int percents)

@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** QtDockTile - crossplatform for the work this docks 
+** QtDockTile - crossplatform for the work this docks
 **
 ** Copyright © 1301 USA
 ** Copyright © 2012 Sidorov Aleksey <gorthauer87@ya.ru>
@@ -49,6 +49,7 @@ public:
 	QMenu *menu() const;
 	//FIXME may be unusable on some platforms
 	void setBadge(const QString &text);
+	void clearBadge();
 	QString badge() const;
 	void setProgress(int percent);
 	int progress() const;
@@ -70,7 +71,7 @@ private:
 	QIcon m_dockIcon;
 	QIcon m_overlayIcon;
 	QString m_badge;
-    QPointer<QMenu> m_menu;
+	QPointer<QMenu> m_menu;
 	int m_percent;
 };
 

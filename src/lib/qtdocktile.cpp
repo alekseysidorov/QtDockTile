@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** QtDockTile - crossplatform for the work this docks 
+** QtDockTile - crossplatform for the work this docks
 **
 ** Copyright © 1301 USA
 ** Copyright © 2012 Sidorov Aleksey <gorthauer87@ya.ru>
@@ -115,7 +115,10 @@ QMenu *QtDockTile::menu() const
 
 void QtDockTile::setBadge(const QString &text)
 {
-    manager()->setBadge(text);
+	if (text.isNull())
+		clearBadge();
+	else
+		manager()->setBadge(text);
 }
 
 /*!
@@ -126,6 +129,11 @@ void QtDockTile::setBadge(const QString &text)
 void QtDockTile::setBadge(int count)
 {
 	manager()->setBadge(QString::number(count));
+}
+
+void QtDockTile::clearBadge()
+{
+	manager()->clearBadge();
 }
 
 /*!
