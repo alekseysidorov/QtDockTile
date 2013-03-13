@@ -2,7 +2,7 @@
  *  unitylauncher.h
  *
  *  Copyright (c) 2011 by Sidorov Aleksey <gorthauer87@ya.ru>
- *  Copyright (c) 2011 Vsevolod Velichko <torkvema@gmail.com>
+ *  Copyright (c) 2011, 2013 Vsevolod Velichko <torkvema@gmail.com>
  *
  ***************************************************************************
  *
@@ -34,7 +34,7 @@ class UnityLauncher : public QtDockProvider
 {
 	Q_OBJECT
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    Q_PLUGIN_METADATA(IID docktileProvider_iid)
+	Q_PLUGIN_METADATA(IID docktileProvider_iid)
 #endif
 public:
 	explicit UnityLauncher(QObject *parent = 0);
@@ -42,6 +42,7 @@ public:
 	virtual bool isUsable() const;
 	virtual void setMenu(QMenu *menu);
 	virtual void setBadge(const QString &badge);
+	virtual void clearBadge();
 	virtual void setProgress(int percents);
 	virtual void alert(bool on);
 protected:

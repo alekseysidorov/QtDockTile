@@ -32,7 +32,7 @@ class WindowsTaskBar : public QtDockProvider
 {
 	Q_OBJECT
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    Q_PLUGIN_METADATA(IID docktileProvider_iid)
+	Q_PLUGIN_METADATA(IID docktileProvider_iid)
 #endif
 public:
 	explicit WindowsTaskBar(QObject *parent = 0);
@@ -40,6 +40,7 @@ public:
 	virtual bool isUsable() const;
 	virtual void setMenu(QMenu *menu);
 	virtual void setBadge(const QString &badge);
+	virtual void clearBadge();
 	virtual void setProgress(int percents);
 	virtual void alert(bool on);
 	virtual QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);

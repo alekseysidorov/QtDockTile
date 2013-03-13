@@ -2,7 +2,7 @@
  *  unitylauncher.cpp
  *
  *  Copyright (c) 2011 by Sidorov Aleksey <gorthauer87@ya.ru>
- *  Copyright (c) 2011 Vsevolod Velichko <torkvema@gmail.com>
+ *  Copyright (c) 2011, 2013 Vsevolod Velichko <torkvema@gmail.com>
  *
  ***************************************************************************
  *
@@ -82,6 +82,12 @@ void UnityLauncher::setMenu(QMenu *menu)
 
 void UnityLauncher::setBadge(const QString &badge)
 {
+	if (badge.isEmpty())
+	{
+		clearBadge();
+		return;
+	}
+
 	bool ok;
 	qint64 count = badge.toInt(&ok);
 	if (!ok)
@@ -90,6 +96,13 @@ void UnityLauncher::setBadge(const QString &badge)
 	QVariantMap map;
 	map.insert(QLatin1String("count"), count);
 	map.insert(QLatin1String("count-visible"), count > 0);
+	sendMessage(map);
+}
+
+void UnityLauncher::clearBadge()
+{
+	QVariantMap map;
+	map.insert(QLatin1String("count-visible"), false);
 	sendMessage(map);
 }
 

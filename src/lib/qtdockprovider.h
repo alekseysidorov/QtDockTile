@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** QtDockTile - crossplatform for the work this docks 
+** QtDockTile - crossplatform for the work this docks
 **
 ** Copyright © 1301 USA
 ** Copyright © 2012 Sidorov Aleksey <gorthauer87@ya.ru>
@@ -37,13 +37,14 @@ class QMenu;
 class QTDOCKTILE_EXPORT QtDockProviderInterface
 {
 public:
-    virtual ~QtDockProviderInterface() {}
+	virtual ~QtDockProviderInterface() {}
 	virtual bool isUsable() const = 0;
 	virtual void setMenu(QMenu *menu) = 0;
 	virtual void setBadge(const QString &badge) = 0;
+	virtual void clearBadge() = 0;
 	virtual void setProgress(int percents) = 0;
 	virtual void alert(bool on) = 0;
-    virtual QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);
+	virtual QVariant platformInvoke(const QByteArray &method, const QVariant &arguments);
 };
 
 #define docktileProvider_iid \
