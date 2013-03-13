@@ -6,6 +6,7 @@ add_simple_library(qtdocktile
     SOVERSION ${CMAKE_QTDOCKTILE_VERSION_MAJOR}
     INCLUDE_DIR QtDockTile
     PKGCONFIG_TEMPLATE qtdocktile.pc.cmake
+    QT Core Gui Widgets
 )
 
 #FRAMEWORK TRUE

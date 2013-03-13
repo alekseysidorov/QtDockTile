@@ -1,4 +1,5 @@
 import qbs.base 1.0
+import qbs.fileinfo as FileInfo
 
 Product {
     name: "qtdocktile"
@@ -57,7 +58,7 @@ Product {
     Rule {
         inputs: [ "devheader" ]
         Artifact {
-            fileTags: [ "hpp",  "installed_content" ]
+            fileTags: [ "hpp" ]
             fileName: "GeneratedFiles/" + input.moduleProperty('qbs', 'installDir') + "/" + input.fileName
         }
 
